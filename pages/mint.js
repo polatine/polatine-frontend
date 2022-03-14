@@ -1,6 +1,78 @@
 import Head from "next/head";
+import { useState, useEffect } from "react";
+import Web3 from "web3";
+import {
+  CONTRACT_ABI,
+  CONTRACT_ADDRESS
+} from "../contract/config";
+
+
+const validChain = "0X4";
 
 export default function Home() {
+  const [contract, setContract] = useState(0);
+  const [status, setStatus] = useState({
+    connected: false,
+    status: "Connect wallet",
+    address: "",
+  });
+
+  var web3;
+  const connectWallet = async () => {
+    web3.eth
+      .requestAccounts()
+      .then((accounts) => {
+        setStatus({
+          connected: true,
+          status: "",
+          address: accounts[0],
+        });
+      })
+      .catch((e) => {
+        setStatus({
+          connected: false,
+          status: "Connect wallet",
+          address: "",
+        });
+      })
+      .then(() => {
+        if (!(validChain === window.ethereum.chainId.toUpperCase())) {
+          var s = status;
+          s.connected = false;
+          s.status = "Switch to Rinkeby Testnet";
+          setStatus(s);
+          web3.currentProvider
+            .request({
+              method: "wallet_switchEthereumChain",
+              params: [{ chainId: validChain }],
+            })
+            .then((response) => {
+              if (typeof response === null) {
+                s.connected = true;
+                s.status = "";
+                setStatus(s);
+              }
+            });
+        }
+      });
+
+    window.ethereum.on("chainChanged", () => {
+      window.location.reload();
+    });
+  };
+
+  const getContract = async () => {
+    const theContract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+    setContract(theContract);
+  };
+
+  useEffect(() => {
+    web3 = new Web3(window.ethereum);
+    connectWallet();
+    getContract();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+
   return (
     <div className="container">
       <Head>
@@ -11,7 +83,7 @@ export default function Home() {
       <main>
         <h1 className="title">Mint</h1>
 
-        <p className="description">The NFT Platform for Artists</p>
+        <p className="description">The NFT Platform for Artists {status.status}</p>
 
         <div className="grid">
           <div className="card">
