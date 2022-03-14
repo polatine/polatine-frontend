@@ -66,6 +66,12 @@ export default function Home() {
     setContract(theContract);
   };
 
+  const mint = async () => {
+    contract.methods.mintNFT(status.address,"https://gateway.pinata.cloud/ipfs/QmV3d9NMVS4X4Qcyc8pduo8cedhvnUWa1E3tB3ABJNFMWZ").send({
+      from: status.address,
+      gas: 470000});
+  }
+
   useEffect(() => {
     web3 = new Web3(window.ethereum);
     connectWallet();
@@ -85,7 +91,7 @@ export default function Home() {
 
         <p className="description">The NFT Platform for Artists {status.status}</p>
 
-        <div className="grid">
+        <div className="grid" onClick={mint}>
           <div className="card">
             <h3>Mint</h3>
             <p>Mint features, cameos and so on.</p>
