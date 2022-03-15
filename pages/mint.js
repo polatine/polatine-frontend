@@ -133,6 +133,8 @@ export default function Home(props) {
           padding: 1.5rem;
           text-align: left;
           cursor: pointer;
+          min-height: 170px;
+          min-width: 350px;
           color: inherit;
           text-decoration: none;
           border: 1px solid #eaeaea;
