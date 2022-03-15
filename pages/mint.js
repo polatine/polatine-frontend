@@ -10,7 +10,6 @@ export default function Home(props) {
       )
       .send({
         from: props.status.address,
-        gas: 470000,
       });
   };
   const router = useRouter();
