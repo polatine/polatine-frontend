@@ -1,83 +1,14 @@
 import Head from "next/head";
-import { useState, useEffect } from "react";
-import Web3 from "web3";
-import {
-  CONTRACT_ABI,
-  CONTRACT_ADDRESS
-} from "../contract/config";
+import { useRouter } from "next/router"
 
 
-const validChain = "0X4";
-
-export default function Home() {
-  const [contract, setContract] = useState(0);
-  const [status, setStatus] = useState({
-    connected: false,
-    status: "Connect wallet",
-    address: "",
-  });
-
-  var web3;
-  const connectWallet = async () => {
-    web3.eth
-      .requestAccounts()
-      .then((accounts) => {
-        setStatus({
-          connected: true,
-          status: "",
-          address: accounts[0],
-        });
-      })
-      .catch((e) => {
-        setStatus({
-          connected: false,
-          status: "Connect wallet",
-          address: "",
-        });
-      })
-      .then(() => {
-        if (!(validChain === window.ethereum.chainId.toUpperCase())) {
-          var s = status;
-          s.connected = false;
-          s.status = "Switch to Rinkeby Testnet";
-          setStatus(s);
-          web3.currentProvider
-            .request({
-              method: "wallet_switchEthereumChain",
-              params: [{ chainId: validChain }],
-            })
-            .then((response) => {
-              if (typeof response === null) {
-                s.connected = true;
-                s.status = "";
-                setStatus(s);
-              }
-            });
-        }
-      });
-
-    window.ethereum.on("chainChanged", () => {
-      window.location.reload();
-    });
-  };
-
-  const getContract = async () => {
-    const theContract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
-    setContract(theContract);
-  };
-
+export default function Home(props) {
   const mint = async () => {
-    contract.methods.mintNFT(status.address,"https://gateway.pinata.cloud/ipfs/QmV3d9NMVS4X4Qcyc8pduo8cedhvnUWa1E3tB3ABJNFMWZ").send({
-      from: status.address,
+    props.contract.methods.mintNFT(props.status.address,"https://gateway.pinata.cloud/ipfs/QmV3d9NMVS4X4Qcyc8pduo8cedhvnUWa1E3tB3ABJNFMWZ").send({
+      from: props.status.address,
       gas: 470000});
   }
-
-  useEffect(() => {
-    web3 = new Web3(window.ethereum);
-    connectWallet();
-    getContract();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
+  const router = useRouter()
 
   return (
     <div className="container">
@@ -87,9 +18,12 @@ export default function Home() {
       </Head>
 
       <main>
+        <span className="backButton" onClick={() => router.back()}>
+        ⬅
+        </span>
         <h1 className="title">Mint</h1>
 
-        <p className="description">The NFT Platform for Artists {status.status}</p>
+        <p>Your public address: {props.status.address}</p>
 
         <div className="grid" onClick={mint}>
           <div className="card">
@@ -100,13 +34,6 @@ export default function Home() {
       </main>
 
       <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by <img src="/vercel.svg" alt="Vercel" className="logo" />
-        </a>
       </footer>
 
       <style jsx>{`
@@ -117,6 +44,13 @@ export default function Home() {
           flex-direction: column;
           justify-content: center;
           align-items: center;
+        }
+        .backButton {
+          position: absolute;
+          font-size: 40pt;
+          left: 100px;
+          top: 40px;
+          cursor: pointer;
         }
 
         main {
@@ -179,14 +113,6 @@ export default function Home() {
           font-size: 1.5rem;
         }
 
-        code {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          font-size: 1.1rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-            DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-        }
 
         .grid {
           display: flex;
@@ -203,6 +129,7 @@ export default function Home() {
           flex-basis: 45%;
           padding: 1.5rem;
           text-align: left;
+          cursor: pointer;
           color: inherit;
           text-decoration: none;
           border: 1px solid #eaeaea;
@@ -213,6 +140,12 @@ export default function Home() {
         .card h3 {
           margin: 0 0 1rem 0;
           font-size: 1.5rem;
+        }
+        .card:hover,
+        .card:focus,
+        .card:active {
+          color: #0070f3;
+          border-color: #0070f3;
         }
 
         .card p {

@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from 'next/link'
 
 export default function Home() {
   return (
@@ -14,26 +15,23 @@ export default function Home() {
         <p className="description">The NFT Platform for Artists</p>
 
         <div className="grid">
-          <a href="mint" className="card">
+          <Link href="mint">
+            <a className="card">
             <h3>Mint</h3>
             <p>Mint features, cameos and so on.</p>
-          </a>
+            </a>
+          </Link>
 
-          <a href="profile" className="card">
+          <Link href="profile">
+          <a className="card">
             <h3>My NFTS</h3>
             <p>List the NFTs in your possession. Powered by OpenSea.</p>
           </a>
+          </Link>
         </div>
       </main>
 
       <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by <img src="/vercel.svg" alt="Vercel" className="logo" />
-        </a>
       </footer>
 
       <style jsx>{`
@@ -79,17 +77,6 @@ export default function Home() {
           text-decoration: none;
         }
 
-        .title a {
-          color: #0070f3;
-          text-decoration: none;
-        }
-
-        .title a:hover,
-        .title a:focus,
-        .title a:active {
-          text-decoration: underline;
-        }
-
         .title {
           margin: 0;
           line-height: 1.15;
@@ -104,15 +91,6 @@ export default function Home() {
         .description {
           line-height: 1.5;
           font-size: 1.5rem;
-        }
-
-        code {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          font-size: 1.1rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-            DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
         }
 
         .grid {
@@ -130,6 +108,7 @@ export default function Home() {
           flex-basis: 45%;
           padding: 1.5rem;
           text-align: left;
+          min-height: 170px;
           color: inherit;
           text-decoration: none;
           border: 1px solid #eaeaea;

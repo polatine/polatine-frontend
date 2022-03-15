@@ -1,7 +1,8 @@
 import Head from "next/head";
-import Link from "next/link";
+import { useRouter } from "next/router"
 
 export default function Home() {
+  const router = useRouter()
   return (
     <div className="container">
       <Head>
@@ -10,6 +11,9 @@ export default function Home() {
       </Head>
 
       <main>
+        <span className="backButton" onClick={() => router.back()}>
+        ⬅
+        </span>
         <h1 className="title">My NFTs</h1>
 
         <p className="description">The NFT Platform for Artists</p>
@@ -39,13 +43,6 @@ export default function Home() {
       </main>
 
       <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by <img src="/vercel.svg" alt="Vercel" className="logo" />
-        </a>
       </footer>
 
       <style jsx>{`
@@ -58,6 +55,13 @@ export default function Home() {
           align-items: center;
         }
 
+        .backButton {
+          position: absolute;
+          font-size: 40pt;
+          left: 100px;
+          top: 40px;
+          cursor: pointer;
+        }
         main {
           padding: 5rem 0;
           flex: 1;
