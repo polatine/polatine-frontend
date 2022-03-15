@@ -1,14 +1,19 @@
 import Head from "next/head";
-import { useRouter } from "next/router"
-
+import { useRouter } from "next/router";
 
 export default function Home(props) {
   const mint = async () => {
-    props.contract.methods.mintNFT(props.status.address,"https://gateway.pinata.cloud/ipfs/QmV3d9NMVS4X4Qcyc8pduo8cedhvnUWa1E3tB3ABJNFMWZ").send({
-      from: props.status.address,
-      gas: 470000});
-  }
-  const router = useRouter()
+    props.contract.methods
+      .mintNFT(
+        props.status.address,
+        "https://gateway.pinata.cloud/ipfs/QmV3d9NMVS4X4Qcyc8pduo8cedhvnUWa1E3tB3ABJNFMWZ"
+      )
+      .send({
+        from: props.status.address,
+        gas: 470000,
+      });
+  };
+  const router = useRouter();
 
   return (
     <div className="container">
@@ -19,7 +24,7 @@ export default function Home(props) {
 
       <main>
         <span className="backButton" onClick={() => router.back()}>
-        ⬅
+          ⬅
         </span>
         <h1 className="title">Mint</h1>
 
@@ -33,8 +38,7 @@ export default function Home(props) {
         </div>
       </main>
 
-      <footer>
-      </footer>
+      <footer></footer>
 
       <style jsx>{`
         .container {
@@ -112,7 +116,6 @@ export default function Home(props) {
           line-height: 1.5;
           font-size: 1.5rem;
         }
-
 
         .grid {
           display: flex;

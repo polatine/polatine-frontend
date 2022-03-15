@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Link from 'next/link'
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -17,22 +17,21 @@ export default function Home() {
         <div className="grid">
           <Link href="mint">
             <a className="card">
-            <h3>Mint</h3>
-            <p>Mint features, cameos and so on.</p>
+              <h3>Mint</h3>
+              <p>Mint features, cameos and so on.</p>
             </a>
           </Link>
 
           <Link href="profile">
-          <a className="card">
-            <h3>My NFTS</h3>
-            <p>List the NFTs in your possession. Powered by OpenSea.</p>
-          </a>
+            <a className="card">
+              <h3>My NFTS</h3>
+              <p>List the NFTs in your possession. Powered by OpenSea.</p>
+            </a>
           </Link>
         </div>
       </main>
 
-      <footer>
-      </footer>
+      <footer></footer>
 
       <style jsx>{`
         .container {

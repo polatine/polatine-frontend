@@ -1,8 +1,8 @@
 import Head from "next/head";
-import { useRouter } from "next/router"
+import { useRouter } from "next/router";
 
 export default function Home() {
-  const router = useRouter()
+  const router = useRouter();
   return (
     <div className="container">
       <Head>
@@ -12,7 +12,7 @@ export default function Home() {
 
       <main>
         <span className="backButton" onClick={() => router.back()}>
-        ⬅
+          ⬅
         </span>
         <h1 className="title">My NFTs</h1>
 
@@ -42,8 +42,7 @@ export default function Home() {
         </div>
       </main>
 
-      <footer>
-      </footer>
+      <footer></footer>
 
       <style jsx>{`
         .container {
