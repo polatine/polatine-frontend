@@ -29,7 +29,7 @@ export default function Home(props) {
         <h1 className="title">Mint</h1>
 
         <p>Your public address: {props.status.address}</p>
-        <p>{process.env.pinataApiKey}</p>
+        <p>{process.env.NEXT_PUBLIC_pinataApiKey}</p>
 
         <form>
           <input type="file" />
