@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useRouter } from "next/router";
-import { pinFileToIPFS } from "../components/pinata";
+// import { pinFileToIPFS } from "../components/pinata";
 
 export default function Home(props) {
   const mint = async () => {
