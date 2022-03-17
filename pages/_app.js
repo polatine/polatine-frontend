@@ -7,7 +7,7 @@ const validChain = "0X4";
 var web3;
 
 function MyApp({ Component, pageProps }) {
-  console.log(process.env.pinataApiKey);
+  console.log(process.env.AAA);
   const [contract, setContract] = useState(0);
   const [status, setStatus] = useState({
     connected: false,
