@@ -1,46 +1,24 @@
-//imports needed for this function
-const axios = require("axios");
-const fs = require("fs");
-const FormData = require("form-data");
+import FormData from "form-data";
+import axios from "axios";
 
-export const pinFileToIPFS = () => {
-  const pinataApiKey = process.env.pinataApiKey;
-  const pinataSecretApiKey = process.env.pinataSecretApiKey;
+export const pinFileToIPFS = (img) => {
+  const pinataApiKey = process.env.NEXT_PUBLIC_pinataApiKey;
+  const pinataSecretApiKey = process.env.NEXT_PUBLIC_pinataSecretApiKey;
   const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
 
   //we gather a local file for this example, but any valid readStream source will work here.
   let data = new FormData();
-  data.append("file", fs.createReadStream("./yourfile.png"));
+  data.append("file", img);
 
   //You'll need to make sure that the metadata is in the form of a JSON object that's been convered to a string
   //metadata is optional
+  // TODO: Same name cannot be posted twice, how do we make sure name is different every time so IPFS accepts it?
   const metadata = JSON.stringify({
-    name: "testname",
-    keyvalues: {
-      exampleKey: "exampleValue",
-    },
+    name: "hella deep graffiti",
   });
   data.append("pinataMetadata", metadata);
 
-  //pinataOptions are optional
-  const pinataOptions = JSON.stringify({
-    cidVersion: 0,
-    customPinPolicy: {
-      regions: [
-        {
-          id: "FRA1",
-          desiredReplicationCount: 1,
-        },
-        {
-          id: "NYC1",
-          desiredReplicationCount: 2,
-        },
-      ],
-    },
-  });
-  data.append("pinataOptions", pinataOptions);
-
-  return axios
+  axios
     .post(url, data, {
       maxBodyLength: "Infinity", //this is needed to prevent axios from erroring out with large files
       headers: {
@@ -51,8 +29,6 @@ export const pinFileToIPFS = () => {
     })
     .then(function (response) {
       //handle response here
-    })
-    .catch(function (error) {
-      //handle error here
+      return (filehash = response.data.IpfsHash);
     });
 };

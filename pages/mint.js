@@ -1,17 +1,21 @@
 import Head from "next/head";
+import { useState } from "react";
 import { useRouter } from "next/router";
-// import { pinFileToIPFS } from "../components/pinata";
+import { pinFileToIPFS } from "../components/pinata";
 
 export default function Home(props) {
+  const [file, setFile] = useState();
   const mint = async () => {
-    props.contract.methods
-      .mintNFT(
-        props.status.address,
-        "https://gateway.pinata.cloud/ipfs/QmV3d9NMVS4X4Qcyc8pduo8cedhvnUWa1E3tB3ABJNFMWZ"
-      )
-      .send({
-        from: props.status.address,
-      });
+    // props.contract.methods
+    //   .mintNFT(
+    //     props.status.address,
+    //     "https://gateway.pinata.cloud/ipfs/QmV3d9NMVS4X4Qcyc8pduo8cedhvnUWa1E3tB3ABJNFMWZ"
+    //   )
+    //   .send({
+    //     from: props.status.address,
+    //   });
+
+    pinFileToIPFS(file);
   };
   const router = useRouter();
 
@@ -29,10 +33,12 @@ export default function Home(props) {
         <h1 className="title">Mint</h1>
 
         <p>Your public address: {props.status.address}</p>
-        <p>{process.env.NEXT_PUBLIC_pinataApiKey}</p>
 
         <form>
-          <input type="file" />
+          <input
+            type="file"
+            onChange={(event) => setFile(event.target.files[0])}
+          />
           <div>
             <input />
             <input />
