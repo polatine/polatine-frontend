@@ -1,5 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useRouter } from "next/router";
+import { pinFileToIPFS } from "../components/pinata";
 
 export default function Home(props) {
   const mint = async () => {
@@ -28,6 +30,7 @@ export default function Home(props) {
         <h1 className="title">Mint</h1>
 
         <p>Your public address: {props.status.address}</p>
+        {process.env.pinataApiKey}
 
         <form>
           <input type="file" />
