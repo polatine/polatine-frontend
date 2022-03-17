@@ -7,7 +7,7 @@ const validChain = "0X4";
 var web3;
 
 function MyApp({ Component, pageProps }) {
-  console.log(process.env.AAA);
+  console.log(process.env.NEXT_PUBLIC_AAA);
   const [contract, setContract] = useState(0);
   const [status, setStatus] = useState({
     connected: false,
