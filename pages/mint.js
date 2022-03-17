@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 // import { pinFileToIPFS } from "../components/pinata";
 
 export default function Home(props) {
+  console.log(process.env.pinataApiKey);
   const mint = async () => {
     props.contract.methods
       .mintNFT(
