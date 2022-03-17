@@ -4,6 +4,7 @@ import { CONTRACT_ABI, CONTRACT_ADDRESS } from "../contract/config";
 import { useState, useEffect } from "react";
 
 const validChain = "0X4";
+var web3;
 
 function MyApp({ Component, pageProps }) {
   const [contract, setContract] = useState(0);
@@ -13,7 +14,6 @@ function MyApp({ Component, pageProps }) {
     address: "",
   });
 
-  var web3;
   const connectWallet = async () => {
     web3.eth
       .requestAccounts()
@@ -68,7 +68,13 @@ function MyApp({ Component, pageProps }) {
     getContract();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return <Component contract={contract} status={status} />;
+  return (
+    <Component
+      contract={contract}
+      status={status}
+      connectWallet={connectWallet}
+    />
+  );
 }
 
 // Only uncomment this method if you have blocking data requirements for

@@ -29,12 +29,28 @@ export default function Home(props) {
 
         <p>Your public address: {props.status.address}</p>
 
-        <div className="grid" onClick={mint}>
-          <div className="card">
-            <h3>Mint</h3>
-            <p>Mint features, cameos and so on.</p>
+        <form>
+          <input type="file" />
+          <div>
+            <input />
+            <input />
           </div>
-        </div>
+          {props.status.connected ? (
+            <div className="grid" onClick={mint}>
+              <div className="card">
+                <h3>Mint</h3>
+                <p>Mint features, cameos and so on.</p>
+              </div>
+            </div>
+          ) : (
+            <div className="grid" onClick={props.connectWallet}>
+              <div className="card">
+                <h3>Connect wallet</h3>
+                <p>Connect your wallet to proceed</p>
+              </div>
+            </div>
+          )}
+        </form>
       </main>
 
       <footer></footer>
