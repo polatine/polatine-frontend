@@ -7,7 +7,16 @@ import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
-import {Select, MenuItem, InputLabel, FormControl,FormGroup, FormControlLabel,FormLabel, Checkbox} from "@mui/material/";
+import {
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+  FormGroup,
+  FormControlLabel,
+  FormLabel,
+  Checkbox,
+} from "@mui/material/";
 
 import { width } from "@mui/system";
 
@@ -47,123 +56,106 @@ export default function Home(props) {
           ⬅
         </span>
         <h1 className="title">Mint</h1>
-        
-
 
         {props.status.connected ? (
-
-              <div>
-                <Stack spacing={2}>
-                
-              <div className="fileInputContainer">
-                
-                {file ? (
-                  <div style={{display: "inline-block", width: "50%", margin: "auto"}}>
-                  <img
-                    className="imgPreview"
-                    src={URL.createObjectURL(file)}
-                    alt="img"
-                    style={{display: "block",  margin: "auto"}}
-                  />
-
-                  <label htmlFor="contained-button-file">
-                  <Input
-                    accept="image/*"
-                    id="contained-button-file"
-                    multiple
-                    type="file"
-                    onChange={(event) => setFile(event.target.files[0])}
-                  />
-                  <Button variant="contained" component="span" style={{display: "block"}}>
-                    Reupload Image
-                  </Button>
-                  
-                </label>
-                  </div>
-                ) : (
-                  <div style={{display: "inline-block", width: "50%", margin: "auto"}}>
-                    
-                  <img
-                    className="imgDefulat"
-                    src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHNxQ-Y9BMHlpIa0Tmmu1igY6fthBX3P3z2w&usqp=CAU"}
-                    alt="img"
-                    style={{display: "block",  margin: "auto"}}
-                  />
-                  <span style={{display: "block",  margin: "auto"}}  > Default image, kanske något vi kan generate:a, kanske återvända min kod för 3d flaggor, kanske overkill men ett sätt att standout</span>
-                  <label htmlFor="contained-button-file">
-                  <Input
-                    accept="image/*"
-                    id="contained-button-file"
-                    multiple
-                    type="file"
-                    onChange={(event) => setFile(event.target.files[0])}
-                  />
-                  <Button variant="contained" component="span" style={{display: "block", width:"50%", margin: "auto" }}>
-                    Upload your own Image
-                  </Button>
-                  
-                </label>
-                    </div>
-                )}
-              </div>
-              
-              <Stack spacing={5} style={{width: "50%", margin: "auto"}}>
-                <TextField
-                  id="outlined-basic"
-                  onChange={(event) => setName(event.target.value)}
-                  label="Name"
-                  variant="outlined"
+          <div className="mainContainer">
+            <div className="fileInputContainer">
+              {file ? (
+                <img
+                  className="imgPreview"
+                  src={URL.createObjectURL(file)}
+                  alt="img"
+                  style={{ display: "block", margin: "auto" }}
                 />
-                <TextField
-                  id="outlined-basic"
-                  onChange={(event) => setDesc(event.target.value)}
-                  label="Description"
-                  variant="outlined"
+              ) : (
+                <div className="imgPreview"></div>
+              )}
+              <label htmlFor="contained-button-file">
+                <Input
+                  accept="image/*"
+                  id="contained-button-file"
+                  multiple
+                  type="file"
+                  onChange={(event) => setFile(event.target.files[0])}
                 />
-                
+                <Button
+                  variant="contained"
+                  component="span"
+                  style={{ display: "block" }}
+                >
+                  Upload Image
+                </Button>
+              </label>
+            </div>
 
-                <FormControl fullWidth>
-                    <InputLabel htmlFor="demo-simple-select-label">Collection Size</InputLabel>
-                    <Select
-                      value={collectionSize}
-                      onChange={(event) => setCollectionSize(event.target.value)}
-                      label="Collection Size"
-                      labelId="demo-simple-select-label"
-                    >
-                      <MenuItem value={10}>10</MenuItem>
-                      <MenuItem value={20}>20</MenuItem>
-                      <MenuItem value={30}>30</MenuItem>
-                    </Select>
-                </FormControl>
+            <Stack spacing={5} style={{ width: "30%", margin: "auto" }}>
+              <TextField
+                id="outlined-basic"
+                onChange={(event) => setName(event.target.value)}
+                label="Name"
+                variant="outlined"
+              />
+              <TextField
+                id="outlined-basic"
+                onChange={(event) => setDesc(event.target.value)}
+                label="Description"
+                variant="outlined"
+              />
 
-                <TextField
-                  id="outlined-basic"
-                  onChange={(event) => {setMintingPrice(event.target.value)}}
-                  label="Minting Price"
-                  variant="outlined"
-                />
-                <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-                  <FormLabel component="legend">What are you down todo?</FormLabel>
+              <FormControl fullWidth>
+                <InputLabel htmlFor="demo-simple-select-label">
+                  Collection Size
+                </InputLabel>
+                <Select
+                  value={collectionSize}
+                  onChange={(event) => setCollectionSize(event.target.value)}
+                  label="Collection Size"
+                  labelId="demo-simple-select-label"
+                >
+                  <MenuItem value={10}>10</MenuItem>
+                  <MenuItem value={20}>20</MenuItem>
+                  <MenuItem value={30}>30</MenuItem>
+                </Select>
+              </FormControl>
+
+              <TextField
+                id="outlined-basic"
+                onChange={(event) => {
+                  setMintingPrice(event.target.value);
+                }}
+                label="Minting Price"
+                variant="outlined"
+              />
+              <FormControl
+                sx={{ m: 3 }}
+                component="fieldset"
+                variant="standard"
+              >
+                <FormLabel component="legend">
+                  What are you down todo?
+                </FormLabel>
                 <FormGroup>
-                  <FormControlLabel control={<Checkbox  />} label="Make feature for anybody" />
-                  <FormControlLabel control={<Checkbox />} label="Record inperson" />
-                  <FormControlLabel control={<Checkbox />} label="I have creative control" />
+                  <FormControlLabel
+                    control={<Checkbox />}
+                    label="Make feature for anybody"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox />}
+                    label="Record inperson"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox />}
+                    label="I have creative control"
+                  />
                 </FormGroup>
-                </FormControl>
-              </Stack>
-             
-              <div className="grid" onClick={mint}>
-            <div className="card">
+              </FormControl>
+            </Stack>
+
+            <div className="card" onClick={mint}>
               <h3>Mint</h3>
               <p>Mint features, cameos and so on.</p>
             </div>
           </div>
-          </Stack>
-              </div>
-
-
-
-          
         ) : (
           <div className="grid" onClick={props.connectWallet}>
             <div className="card">
@@ -196,6 +188,7 @@ export default function Home(props) {
         main {
           padding: 5rem 0;
           flex: 1;
+          width: 70%;
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -205,15 +198,28 @@ export default function Home(props) {
         .imgPreview {
           width: 300px;
           height: 300px;
+          margin: 0px !important;
         }
-        .fileInputContainer {
-          min-width: 600px;
-          min-height: 300px;
-          margin-top: 2rem;
+        div.imgPreview {
+          border: grey 2px solid;
+        }
+
+        .mainContainer {
           display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
+          margin-top: 4rem;
+          width: 100%;
           justify-content: space-between;
+          flex-direction: row;
+        }
+
+        .fileInputContainer {
+          min-width: 400px;
+          min-height: 300px;
+          // margin-top: 2rem;
+          display: flex;
+          flex-direction: column;
+          // flex-wrap: wrap;
+          // justify-content: space-between;
           align-items: center;
         }
         .textInputsContainer {
@@ -273,23 +279,14 @@ export default function Home(props) {
           font-size: 1.5rem;
         }
 
-        .grid {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-wrap: wrap;
-
-          max-width: 800px;
-        }
-
         .card {
-          margin: 1rem;
+          margin: 0rem;
           flex-basis: 45%;
           padding: 1.5rem;
           text-align: left;
           cursor: pointer;
-          min-height: 170px;
-          min-width: 350px;
+          height: 170px;
+          max-width: 350px;
           color: inherit;
           text-decoration: none;
           border: 1px solid #eaeaea;
