@@ -206,7 +206,6 @@ export default function Home(props) {
 
         .mainContainer {
           display: flex;
-          margin-top: 4rem;
           width: 100%;
           justify-content: space-between;
           flex-direction: row;
@@ -264,7 +263,7 @@ export default function Home(props) {
         }
 
         .title {
-          margin: 0;
+          margin-bottom: 4rem;
           line-height: 1.15;
           font-size: 4rem;
         }
