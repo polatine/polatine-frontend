@@ -2,11 +2,19 @@ import Head from "next/head";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { pinFileToIPFS } from "../components/pinata";
+import TextField from "@mui/material/TextField";
+import { styled } from "@mui/material/styles";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import Stack from "@mui/material/Stack";
 
 export default function Home(props) {
   const [file, setFile] = useState();
   const [name, setName] = useState();
   const [desc, setDesc] = useState();
+  const Input = styled("input")({
+    display: "none",
+  });
 
   const mint = async () => {
     pinFileToIPFS(file, name, desc).then((IpfsHash) => {
@@ -35,39 +43,59 @@ export default function Home(props) {
         </span>
         <h1 className="title">Mint</h1>
 
-        <p>Your public address: {props.status.address}</p>
-
-        <form>
-          <input
-            type="file"
-            onChange={(event) => setFile(event.target.files[0])}
-          />
-          <div>
-            <input
-              placeholder="Name"
-              onChange={(event) => setName(event.target.value)}
+        <div className="fileInputContainer">
+          <label htmlFor="contained-button-file">
+            <Input
+              accept="image/*"
+              id="contained-button-file"
+              multiple
+              type="file"
+              onChange={(event) => setFile(event.target.files[0])}
             />
-            <input
-              placeholder="Description"
-              onChange={(event) => setDesc(event.target.value)}
+            <Button variant="contained" component="span">
+              Upload
+            </Button>
+          </label>
+          {file ? (
+            <img
+              className="imgPreview"
+              src={URL.createObjectURL(file)}
+              alt="img"
             />
-          </div>
-          {props.status.connected ? (
-            <div className="grid" onClick={mint}>
-              <div className="card">
-                <h3>Mint</h3>
-                <p>Mint features, cameos and so on.</p>
-              </div>
-            </div>
           ) : (
-            <div className="grid" onClick={props.connectWallet}>
-              <div className="card">
-                <h3>Connect wallet</h3>
-                <p>Connect your wallet to proceed</p>
-              </div>
-            </div>
+            <div className="imgPreview"></div>
           )}
-        </form>
+        </div>
+
+        <div className="textInputsContainer">
+          <TextField
+            id="outlined-basic"
+            onChange={(event) => setName(event.target.value)}
+            label="Name"
+            variant="outlined"
+          />
+          <TextField
+            id="outlined-basic"
+            onChange={(event) => setDesc(event.target.value)}
+            label="Description"
+            variant="outlined"
+          />
+        </div>
+        {props.status.connected ? (
+          <div className="grid" onClick={mint}>
+            <div className="card">
+              <h3>Mint</h3>
+              <p>Mint features, cameos and so on.</p>
+            </div>
+          </div>
+        ) : (
+          <div className="grid" onClick={props.connectWallet}>
+            <div className="card">
+              <h3>Connect wallet</h3>
+              <p>Connect your wallet to proceed</p>
+            </div>
+          </div>
+        )}
       </main>
 
       <footer></footer>
@@ -98,6 +126,25 @@ export default function Home(props) {
           align-items: center;
         }
 
+        .imgPreview {
+          width: 300px;
+          height: 300px;
+        }
+        .fileInputContainer {
+          min-width: 600px;
+          min-height: 300px;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .textInputsContainer {
+          display: flex;
+          justify-content: space-evenly;
+          width: 600px;
+          margin: 40px;
+        }
         footer {
           width: 100%;
           height: 100px;
@@ -156,7 +203,6 @@ export default function Home(props) {
           flex-wrap: wrap;
 
           max-width: 800px;
-          margin-top: 3rem;
         }
 
         .card {
