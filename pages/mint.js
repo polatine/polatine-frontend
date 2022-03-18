@@ -7,11 +7,16 @@ import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
+import {Select, MenuItem, InputLabel, FormControl,FormGroup, FormControlLabel,FormLabel, Checkbox} from "@mui/material/";
+
+import { width } from "@mui/system";
 
 export default function Home(props) {
   const [file, setFile] = useState();
   const [name, setName] = useState();
   const [desc, setDesc] = useState();
+  const [collectionSize, setCollectionSize] = useState("");
+  const [mintingPrice, setMintingPrice] = useState();
   const Input = styled("input")({
     display: "none",
   });
@@ -42,52 +47,123 @@ export default function Home(props) {
           ⬅
         </span>
         <h1 className="title">Mint</h1>
+        
 
-        <div className="fileInputContainer">
-          <label htmlFor="contained-button-file">
-            <Input
-              accept="image/*"
-              id="contained-button-file"
-              multiple
-              type="file"
-              onChange={(event) => setFile(event.target.files[0])}
-            />
-            <Button variant="contained" component="span">
-              Upload Image
-            </Button>
-          </label>
-          {file ? (
-            <img
-              className="imgPreview"
-              src={URL.createObjectURL(file)}
-              alt="img"
-            />
-          ) : (
-            <div className="imgPreview"></div>
-          )}
-        </div>
 
-        <div className="textInputsContainer">
-          <TextField
-            id="outlined-basic"
-            onChange={(event) => setName(event.target.value)}
-            label="Name"
-            variant="outlined"
-          />
-          <TextField
-            id="outlined-basic"
-            onChange={(event) => setDesc(event.target.value)}
-            label="Description"
-            variant="outlined"
-          />
-        </div>
         {props.status.connected ? (
-          <div className="grid" onClick={mint}>
+
+              <div>
+                <Stack spacing={2}>
+                
+              <div className="fileInputContainer">
+                
+                {file ? (
+                  <div style={{display: "inline-block", width: "50%", margin: "auto"}}>
+                  <img
+                    className="imgPreview"
+                    src={URL.createObjectURL(file)}
+                    alt="img"
+                    style={{display: "block",  margin: "auto"}}
+                  />
+
+                  <label htmlFor="contained-button-file">
+                  <Input
+                    accept="image/*"
+                    id="contained-button-file"
+                    multiple
+                    type="file"
+                    onChange={(event) => setFile(event.target.files[0])}
+                  />
+                  <Button variant="contained" component="span" style={{display: "block"}}>
+                    Reupload Image
+                  </Button>
+                  
+                </label>
+                  </div>
+                ) : (
+                  <div style={{display: "inline-block", width: "50%", margin: "auto"}}>
+                    
+                  <img
+                    className="imgDefulat"
+                    src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHNxQ-Y9BMHlpIa0Tmmu1igY6fthBX3P3z2w&usqp=CAU"}
+                    alt="img"
+                    style={{display: "block",  margin: "auto"}}
+                  />
+                  <span style={{display: "block",  margin: "auto"}}  > Default image, kanske något vi kan generate:a, kanske återvända min kod för 3d flaggor, kanske overkill men ett sätt att standout</span>
+                  <label htmlFor="contained-button-file">
+                  <Input
+                    accept="image/*"
+                    id="contained-button-file"
+                    multiple
+                    type="file"
+                    onChange={(event) => setFile(event.target.files[0])}
+                  />
+                  <Button variant="contained" component="span" style={{display: "block", width:"50%", margin: "auto" }}>
+                    Upload your own Image
+                  </Button>
+                  
+                </label>
+                    </div>
+                )}
+              </div>
+              
+              <Stack spacing={5} style={{width: "50%", margin: "auto"}}>
+                <TextField
+                  id="outlined-basic"
+                  onChange={(event) => setName(event.target.value)}
+                  label="Name"
+                  variant="outlined"
+                />
+                <TextField
+                  id="outlined-basic"
+                  onChange={(event) => setDesc(event.target.value)}
+                  label="Description"
+                  variant="outlined"
+                />
+                
+
+                <FormControl fullWidth>
+                    <InputLabel htmlFor="demo-simple-select-label">Collection Size</InputLabel>
+                    <Select
+                      value={collectionSize}
+                      onChange={(event) => setCollectionSize(event.target.value)}
+                      label="Collection Size"
+                      labelId="demo-simple-select-label"
+                    >
+                      <MenuItem value={10}>10</MenuItem>
+                      <MenuItem value={20}>20</MenuItem>
+                      <MenuItem value={30}>30</MenuItem>
+                    </Select>
+                </FormControl>
+
+                <TextField
+                  id="outlined-basic"
+                  onChange={(event) => {setMintingPrice(event.target.value)}}
+                  label="Minting Price"
+                  variant="outlined"
+                />
+                <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+                  <FormLabel component="legend">What are you down todo?</FormLabel>
+                <FormGroup>
+                  <FormControlLabel control={<Checkbox  />} label="Make feature for anybody" />
+                  <FormControlLabel control={<Checkbox />} label="Record inperson" />
+                  <FormControlLabel control={<Checkbox />} label="I have creative control" />
+                </FormGroup>
+                </FormControl>
+              </Stack>
+             
+              <div className="grid" onClick={mint}>
             <div className="card">
               <h3>Mint</h3>
               <p>Mint features, cameos and so on.</p>
             </div>
           </div>
+          </Stack>
+              </div>
+
+
+
+          
         ) : (
           <div className="grid" onClick={props.connectWallet}>
             <div className="card">
