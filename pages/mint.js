@@ -7,7 +7,6 @@ export default function Home(props) {
   const [file, setFile] = useState();
   const mint = async () => {
     pinFileToIPFS(file).then((IpfsHash) => {
-      console.log(IpfsHash);
       props.contract.methods
         .mintNFT(
           props.status.address,

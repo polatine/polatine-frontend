@@ -19,37 +19,38 @@ export const pinFileToIPFS = async (img) => {
   });
   data.append("pinataMetadata", metadata);
 
-  axios
-    .post(url, data, {
-      maxBodyLength: "Infinity", //this is needed to prevent axios from erroring out with large files
-      headers: {
-        "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
-        pinata_api_key: pinataApiKey,
-        pinata_secret_api_key: pinataSecretApiKey,
-      },
-    })
-    .then(function (response) {
-      url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
-      let metadata = {
-        pinataMetadata: {
-          name: uuidv4(),
+  return new Promise((resolve, reject) => {
+    axios
+      .post(url, data, {
+        maxBodyLength: "Infinity", //this is needed to prevent axios from erroring out with large files
+        headers: {
+          "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          pinata_api_key: pinataApiKey,
+          pinata_secret_api_key: pinataSecretApiKey,
         },
-        pinataContent: {
-          image: response.data.IpfsHash,
-          name: "my new nft",
-          description: "this is an nft",
-        },
-      };
-      axios
-        .post(url, metadata, {
-          headers: {
-            pinata_api_key: pinataApiKey,
-            pinata_secret_api_key: pinataSecretApiKey,
+      })
+      .then(function (response) {
+        url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
+        let metadata = {
+          pinataMetadata: {
+            name: uuidv4(),
           },
-        })
-        .then(function (metaresponse) {
-          console.log(metaresponse);
-          return metaresponse.data.IpfsHash;
-        });
-    });
+          pinataContent: {
+            image: response.data.IpfsHash,
+            name: "my new nft",
+            description: "this is an nft",
+          },
+        };
+        axios
+          .post(url, metadata, {
+            headers: {
+              pinata_api_key: pinataApiKey,
+              pinata_secret_api_key: pinataSecretApiKey,
+            },
+          })
+          .then(function (metaresponse) {
+            resolve(metaresponse.data.IpfsHash);
+          });
+      });
+  });
 };
