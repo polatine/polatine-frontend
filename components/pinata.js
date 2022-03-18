@@ -2,7 +2,7 @@ import FormData from "form-data";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
-export const pinFileToIPFS = async (img) => {
+export const pinFileToIPFS = async (img, name, desc) => {
   const pinataApiKey = process.env.NEXT_PUBLIC_pinataApiKey;
   const pinataSecretApiKey = process.env.NEXT_PUBLIC_pinataSecretApiKey;
   var url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
@@ -37,8 +37,8 @@ export const pinFileToIPFS = async (img) => {
           },
           pinataContent: {
             image: response.data.IpfsHash,
-            name: "my new nft",
-            description: "this is an nft",
+            name: name,
+            description: desc,
           },
         };
         axios

@@ -5,8 +5,11 @@ import { pinFileToIPFS } from "../components/pinata";
 
 export default function Home(props) {
   const [file, setFile] = useState();
+  const [name, setName] = useState();
+  const [desc, setDesc] = useState();
+
   const mint = async () => {
-    pinFileToIPFS(file).then((IpfsHash) => {
+    pinFileToIPFS(file, name, desc).then((IpfsHash) => {
       props.contract.methods
         .mintNFT(
           props.status.address,
@@ -40,8 +43,14 @@ export default function Home(props) {
             onChange={(event) => setFile(event.target.files[0])}
           />
           <div>
-            <input />
-            <input />
+            <input
+              placeholder="Name"
+              onChange={(event) => setName(event.target.value)}
+            />
+            <input
+              placeholder="Description"
+              onChange={(event) => setDesc(event.target.value)}
+            />
           </div>
           {props.status.connected ? (
             <div className="grid" onClick={mint}>
