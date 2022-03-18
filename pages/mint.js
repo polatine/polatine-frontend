@@ -6,16 +6,17 @@ import { pinFileToIPFS } from "../components/pinata";
 export default function Home(props) {
   const [file, setFile] = useState();
   const mint = async () => {
-    // props.contract.methods
-    //   .mintNFT(
-    //     props.status.address,
-    //     "https://gateway.pinata.cloud/ipfs/QmV3d9NMVS4X4Qcyc8pduo8cedhvnUWa1E3tB3ABJNFMWZ"
-    //   )
-    //   .send({
-    //     from: props.status.address,
-    //   });
-
-    pinFileToIPFS(file);
+    pinFileToIPFS(file).then((IpfsHash) => {
+      console.log(IpfsHash);
+      props.contract.methods
+        .mintNFT(
+          props.status.address,
+          "https://gateway.pinata.cloud/ipfs/" + IpfsHash
+        )
+        .send({
+          from: props.status.address,
+        });
+    });
   };
   const router = useRouter();
 

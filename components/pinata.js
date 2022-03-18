@@ -1,10 +1,11 @@
 import FormData from "form-data";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
-export const pinFileToIPFS = (img) => {
+export const pinFileToIPFS = async (img) => {
   const pinataApiKey = process.env.NEXT_PUBLIC_pinataApiKey;
   const pinataSecretApiKey = process.env.NEXT_PUBLIC_pinataSecretApiKey;
-  const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
+  var url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
 
   //we gather a local file for this example, but any valid readStream source will work here.
   let data = new FormData();
@@ -14,7 +15,7 @@ export const pinFileToIPFS = (img) => {
   //metadata is optional
   // TODO: Same name cannot be posted twice, how do we make sure name is different every time so IPFS accepts it?
   const metadata = JSON.stringify({
-    name: "hella deep graffiti",
+    name: uuidv4(),
   });
   data.append("pinataMetadata", metadata);
 
@@ -28,7 +29,27 @@ export const pinFileToIPFS = (img) => {
       },
     })
     .then(function (response) {
-      //handle response here
-      return (filehash = response.data.IpfsHash);
+      url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
+      let metadata = {
+        pinataMetadata: {
+          name: uuidv4(),
+        },
+        pinataContent: {
+          image: response.data.IpfsHash,
+          name: "my new nft",
+          description: "this is an nft",
+        },
+      };
+      axios
+        .post(url, metadata, {
+          headers: {
+            pinata_api_key: pinataApiKey,
+            pinata_secret_api_key: pinataSecretApiKey,
+          },
+        })
+        .then(function (metaresponse) {
+          console.log(metaresponse);
+          return metaresponse.data.IpfsHash;
+        });
     });
 };
