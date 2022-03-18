@@ -81,7 +81,7 @@ export default function Home(props) {
                 <Button
                   variant="contained"
                   component="span"
-                  style={{ display: "block" }}
+                  style={{ display: "block", borderRadius: "0 0 7px 7px" }}
                 >
                   Upload Image
                 </Button>
