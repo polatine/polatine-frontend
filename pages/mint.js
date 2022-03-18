@@ -53,7 +53,7 @@ export default function Home(props) {
               onChange={(event) => setFile(event.target.files[0])}
             />
             <Button variant="contained" component="span">
-              Upload
+              Upload Image
             </Button>
           </label>
           {file ? (
@@ -133,6 +133,7 @@ export default function Home(props) {
         .fileInputContainer {
           min-width: 600px;
           min-height: 300px;
+          margin-top: 2rem;
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
