@@ -1,0 +1,11 @@
+{
+    "name":"50 cent",
+    "mint_price":0.1,
+    "collection_rights": "By minting a NFT from this collection you get a nft representing the ability to claim a --secret-- from 50 cent. This includes up to 8 bars, possibility to do a joint studio session, if the travel expesses are covered, and the artist has the right to decline the request. In that case you can sell the nft.",
+    "description":"Curtis James Jackson III, better known as 50 Cent, born July 6, 1975 in Queens, New York, is an American rapper. His fame came in conjunction with the albums Get Rich or Die Tryin 'and The Massacre. 50 Cent achieved multiplatinum success with both records, which sold over 21 million copies worldwide",
+    "collection_size": 20,
+    "total_minted": 10,
+    "img_url":"https://static.posters.cz/image/750/poster/50-cent-gun-i3074.jpg",
+    "aw_address": "0x41a568Fc89954B0fC8dB1ec8b3339529719a2E7C",
+    "sc_address": "0x3d2Cd9e8b22b0492D4aAF1f795Bd1EF09b80BE18"
+}
