@@ -39,6 +39,7 @@ export default function Home() {
         <img src="/blhome.png" className="blhome" />
         <img src="/rhome.png" className="rhome" />
         <img src="/tlhome.png" className="tlhome" />
+        <img src="/mhome.png" className="mhome" />
       </main>
 
       <style jsx>{`
@@ -58,7 +59,12 @@ export default function Home() {
           width: 15%;
           position: absolute;
           left: 0;
-          top: 5%;
+          top: 0;
+        }
+        img.mhome {
+          width: 20%;
+          position: absolute;
+          z-index: -1;
         }
         .container {
           min-height: 100vh;
@@ -73,6 +79,7 @@ export default function Home() {
           padding: 5rem 0;
           flex: 1;
           display: flex;
+          z-index: 1;
           flex-direction: column;
           justify-content: center;
           align-items: center;
