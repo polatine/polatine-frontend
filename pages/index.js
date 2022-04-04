@@ -146,6 +146,7 @@ export default function Home() {
           border: 1px solid #eaeaea;
           border-radius: 10px;
           transition: color 0.15s ease, border-color 0.15s ease;
+          background: rgba(255, 255, 255, 0.8);
         }
 
         .card:hover,
