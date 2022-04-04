@@ -19,6 +19,7 @@ import {
 } from "@mui/material/";
 
 import { width } from "@mui/system";
+import Web3 from "web3";
 
 export default function Home(props) {
   const [file, setFile] = useState();
@@ -33,9 +34,10 @@ export default function Home(props) {
   const mint = async () => {
     pinFileToIPFS(file, name, desc).then((IpfsHash) => {
       props.contract.methods
-        .mintNFT(
-          props.status.address,
-          "https://gateway.pinata.cloud/ipfs/" + IpfsHash
+        .register(
+          collectionSize,
+          "https://gateway.pinata.cloud/ipfs/" + IpfsHash,
+          Web3.utils.toWei(mintingPrice, "ether")
         )
         .send({
           from: props.status.address,
@@ -102,21 +104,14 @@ export default function Home(props) {
                 variant="outlined"
               />
 
-              <FormControl fullWidth>
-                <InputLabel htmlFor="demo-simple-select-label">
-                  Collection Size
-                </InputLabel>
-                <Select
-                  value={collectionSize}
-                  onChange={(event) => setCollectionSize(event.target.value)}
-                  label="Collection Size"
-                  labelId="demo-simple-select-label"
-                >
-                  <MenuItem value={10}>10</MenuItem>
-                  <MenuItem value={20}>20</MenuItem>
-                  <MenuItem value={30}>30</MenuItem>
-                </Select>
-              </FormControl>
+              <TextField
+                id="outlined-basic"
+                onChange={(event) => {
+                  setCollectionSize(event.target.value);
+                }}
+                label="Collection Size"
+                variant="outlined"
+              />
 
               <TextField
                 id="outlined-basic"
@@ -152,8 +147,8 @@ export default function Home(props) {
             </Stack>
 
             <div className="card" onClick={mint}>
-              <h3>Mint</h3>
-              <p>Mint features, cameos and so on.</p>
+              <h3>Create collection</h3>
+              <p>Enable your fans to mint your NFTs.</p>
             </div>
           </div>
         ) : (
