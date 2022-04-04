@@ -36,9 +36,30 @@ export default function Home() {
             </a>
           </Link>
         </div>
+        <img src="/blhome.png" className="blhome" />
+        <img src="/rhome.png" className="rhome" />
+        <img src="/tlhome.png" className="tlhome" />
       </main>
 
       <style jsx>{`
+        img.blhome {
+          width: 20%;
+          position: absolute;
+          left: 0;
+          bottom: 0;
+        }
+        img.rhome {
+          width: 15%;
+          position: absolute;
+          right: 0;
+          top: 30%;
+        }
+        img.tlhome {
+          width: 15%;
+          position: absolute;
+          left: 0;
+          top: 5%;
+        }
         .container {
           min-height: 100vh;
           padding: 0 0.5rem;
@@ -158,6 +179,12 @@ export default function Home() {
           font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
             Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
             sans-serif;
+          background: linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(231, 231, 231, 1) 82%,
+            rgba(181, 181, 181, 1) 100%
+          );
         }
 
         * {
