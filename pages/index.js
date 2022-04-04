@@ -15,17 +15,17 @@ export default function Home() {
         <p className="description">The NFT Platform for Artists</p>
 
         <div className="grid">
-        <Link href="mint">
+          <Link href="mint">
             <a className="card">
               <h3>Mint</h3>
               <p>Mint features, cameos and so on.</p>
             </a>
           </Link>
 
-          <Link href="createCollection">
+          <Link href="create">
             <a className="card">
               <h3>Create Collection</h3>
-              <p>Mint features, cameos and so on.</p>
+              <p>Enable your fans to mint your NFTs.</p>
             </a>
           </Link>
 
