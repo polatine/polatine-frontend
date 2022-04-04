@@ -179,12 +179,7 @@ export default function Home() {
           font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
             Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
             sans-serif;
-          background: linear-gradient(
-            0deg,
-            rgba(255, 255, 255, 1) 0%,
-            rgba(231, 231, 231, 1) 82%,
-            rgba(181, 181, 181, 1) 100%
-          );
+          background-image: url("/background.jpg");
         }
 
         * {
