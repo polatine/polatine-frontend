@@ -133,8 +133,6 @@ export default function Home(props) {
         )}
       </main>
 
-      <footer></footer>
-
       <style jsx>{`
 
 

@@ -38,8 +38,6 @@ export default function Home() {
         </div>
       </main>
 
-      <footer></footer>
-
       <style jsx>{`
         .container {
           min-height: 100vh;
