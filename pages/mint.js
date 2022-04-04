@@ -10,6 +10,7 @@ import Stack from "@mui/material/Stack";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import Paper from "@mui/material/Paper";
+import Web3 from "web3";
 
 
 import {
@@ -38,8 +39,14 @@ export default function Home(props) {
   });
 
   const mintFromCollection = async () => {
-    console.log("MINTED")
+
+    const price =  Web3.utils.toWei((collection["mint_price"] * mintingAmount).toString(), "ether")
+    if (mintingAmount == 1) 
+      props.contract.methods.claimNFT(collection["aw_address"]).send({from: props.status.address, value: price})
+    else if (mintingAmount > 1)
+      props.contract.methods.claimNFT(collection["aw_address"],mintingAmount).send({from: props.status.address,value: price})
   };
+
   const router = useRouter();
 
   return (
