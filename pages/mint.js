@@ -106,19 +106,22 @@ export default function Home(props) {
 
                 <div className="artistInfo">
         
-                    <div style={{paddingLeft:"5%",paddingRight:"5%"}}>
+                    <div style={{width:"50%", marginLeft:"5%", minWidth: "50vh"}} className="box" >
+                      <div style={{margin:"5%"}}>
                         <h1>About</h1>
                         
                         <h3 > {collection["description"]}</h3> 
                         <iframe  src="https://open.spotify.com/embed/artist/3q7HBObVc0L8jNeTe5Gofh?utm_source=generator" width="100%" height="380" frameBorder="0" allowFullScreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"/>
+                        </div> 
                     </div>
                     
-                    <div className="statsInfo">
-                        <h1>Stats</h1>
-                        <h3>{"Monthly listener: " + "532423423"}</h3> 
-                        <h3>{"Monthly streams: " + "1002423423"}</h3> 
+                    <div style={{width:"50%", marginLeft:"5%", minWidth: "50vh"}} className="statsInfo box">
+                      <div style={{margin:"5%"}}>
+                          <h1>Stats</h1>
+                          <h3>{"Monthly listener: " + "532423423"}</h3> 
+                          <h3>{"Monthly streams: " + "1002423423"}</h3> 
+                      </div>
                     </div>
-                    
                 </div>
                 
                 
@@ -132,6 +135,8 @@ export default function Home(props) {
             </div>
         )}
       </main>
+
+      <footer></footer>
 
       <style jsx>{`
 
@@ -161,6 +166,7 @@ export default function Home(props) {
           flex-direction: column;
           justify-content: center;
           align-items: center;
+          background: grey;
         }
         .backButton {
           position: absolute;
