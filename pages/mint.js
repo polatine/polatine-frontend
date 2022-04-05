@@ -3,15 +3,16 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { pinFileToIPFS } from "../components/pinata";
 import TextField from "@mui/material/TextField";
+import { useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 import Paper from "@mui/material/Paper";
 import Web3 from "web3";
-
+import axios from "axios";
 
 import {
   Select,
@@ -24,7 +25,7 @@ import {
   Checkbox,
 } from "@mui/material/";
 
-import collection from "../testdata/collection1.json"
+import collection from "../testdata/collection1.json";
 
 import { width } from "@mui/system";
 
@@ -34,18 +35,44 @@ export default function Home(props) {
   const [desc, setDesc] = useState();
   const [mintingAmount, setMintingAmount] = useState(0);
   const [mintingPrice, setMintingPrice] = useState();
+  const [artistInfo, setArtistInfo] = useState();
   const Input = styled("input")({
     display: "none",
   });
 
   const mintFromCollection = async () => {
-
-    const price =  Web3.utils.toWei((collection["mint_price"] * mintingAmount).toString(), "ether")
-    if (mintingAmount == 1) 
-      props.contract.methods.claimNFT(collection["aw_address"]).send({from: props.status.address, value: price})
+    const price = Web3.utils.toWei(
+      (collection["mint_price"] * mintingAmount).toString(),
+      "ether"
+    );
+    if (mintingAmount == 1)
+      props.contract.methods
+        .claimNFT(collection["aw_address"])
+        .send({ from: props.status.address, value: price });
     else if (mintingAmount > 1)
-      props.contract.methods.claimNFT(collection["aw_address"],mintingAmount).send({from: props.status.address,value: price})
+      props.contract.methods
+        .claimNFT(collection["aw_address"], mintingAmount)
+        .send({ from: props.status.address, value: price });
   };
+
+  useEffect(() => {
+    if (!props.contract) return;
+    props.contract.methods
+      .tokenURI(2)
+      .call()
+      .then((resp) => {
+        axios.get(resp).then((json) => {
+          console.log(resp);
+          setArtistInfo(json.data);
+        });
+      });
+    props.contract.methods
+      .priceOf(collection["aw_address"])
+      .call()
+      .then((resp) => {
+        setMintingPrice(Web3.utils.fromWei(resp, "ether"));
+      });
+  }, [props.contract]);
 
   const router = useRouter();
 
@@ -60,110 +87,152 @@ export default function Home(props) {
         <span className="backButton" onClick={() => router.back()}>
           ⬅
         </span>
-       
-
 
         {props.status.connected ? (
-            <div className="mainContainer">
-                
-                
+          <>
+            <div className="grid box">
+              <img
+                width="500px"
+                src={
+                  artistInfo ? "https://ipfs.io/ipfs/" + artistInfo.image : ""
+                }
+              />
+              <div className="mintInfo">
+                <h1>
+                  {"Collection Name: " + collection["name"]}
+                  <br />
+                  {"Minting Price: " + collection["mint_price"] + " ETH"}
+                  <br />
+                  {"Claimed: " +
+                    collection["total_minted"] +
+                    " / " +
+                    collection["collection_size"]}{" "}
+                </h1>
+                <h2>{collection["collection_rights"]}</h2>
+                <h3>
+                  <a
+                    href={
+                      "https://etherscan.io/address/" + collection["sc_address"]
+                    }
+                    target="_blank"
+                  >
+                    {"Smartcontract adress: " + collection["sc_address"]}
+                  </a>
+                  <a
+                    href={
+                      "https://etherscan.io/address/" + collection["aw_address"]
+                    }
+                    target="_blank"
+                  >
+                    {"Artist wallet adress: " + collection["aw_address"]}
+                  </a>
+                  <br />
+                  minting price {mintingPrice}
+                </h3>
+              </div>
 
-                <div className="collectionInfo">
-                    
-                        
-                    <img style={{ display: "block", marginTop: "10px",  borderRadius: "15px"}} src = {collection["img_url"]}/>
+              <div>
+                <h1>
+                  {"Cost " + collection["mint_price"] * mintingAmount + " ETH"}
+                </h1>
+                <h2>Excluding gas fees.</h2>
 
-                    <div  style={{width:"50%", marginLeft:"5%", minWidth: "50vh"}} className=" box">
-                        <div  style={{margin:"5%"}}>
-                        <h1 > {"Collection Name: "+ collection["name"]}</h1>
-                        <h1 > {"Minting Price: "+ collection["mint_price"] + " ETH"}</h1>
-                        <h1 > {"Claimed: " + collection["total_minted"] + " / " + collection["collection_size"]} </h1>
-                        <h2>{collection["collection_rights"]}</h2>
-                        <a href={"https://etherscan.io/address/" + collection["sc_address"]}  target="_blank">
-                            <h3>{"Smartcontract adress: " + collection["sc_address"]}</h3>
-                        </a>
-                        <a href={"https://etherscan.io/address/" + collection["aw_address"]}  target="_blank">
-                            <h3>{"Artist wallet adress: " + collection["aw_address"]}</h3>
-                        </a>
-                        </div>
-                    </div>
+                <div className="amountPicker">
+                  <IconButton
+                    onClick={() => {
+                      if (mintingAmount - 1 >= 0)
+                        setMintingAmount(mintingAmount - 1);
+                    }}
+                  >
+                    <RemoveIcon
+                      style={{
+                        color: "rgb(100,100,100,1)",
+                        width: "35px",
+                        height: "35px",
+                        backgroundColor: "#fff5f5",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    />
+                  </IconButton>
+                  <h1>{mintingAmount}</h1>
+                  <IconButton
+                    onClick={() => {
+                      if (
+                        mintingAmount + 1 <=
+                        collection["collection_size"] -
+                          collection["total_minted"]
+                      )
+                        setMintingAmount(mintingAmount + 1);
+                    }}
+                  >
+                    <AddIcon
+                      style={{
+                        color: "rgb(100,100,100,1)",
+                        width: "35px",
+                        height: "35px",
+                        backgroundColor: "#fff5f5",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    />
+                  </IconButton>
                 </div>
-                
-                <div className="mintingInfo box">
-                    
-                    <h1 >{"Cost "+ collection["mint_price"] * mintingAmount + " ETH"}</h1>
-                    <h2 >Excluding gas fees.</h2>
 
-                    <div className="amountPicker">
-                        <IconButton onClick={() => {if (mintingAmount - 1 >= 0) setMintingAmount(mintingAmount - 1)}} >
-                            <RemoveIcon style={{color: "rgb(100,100,100,1)", width: '35px', height: '35px', backgroundColor: '#fff5f5', display: "flex", justifyContent: "center", alignItems: "center"}}/>
-                        </IconButton>
-                        <h1>{mintingAmount}</h1>
-                        <IconButton onClick={() => {if (mintingAmount + 1 <= collection["collection_size"] - collection["total_minted"]) setMintingAmount(mintingAmount + 1)}} >
-                            <AddIcon style={{color: "rgb(100,100,100,1)", width: '35px', height: '35px', backgroundColor: '#fff5f5', display: "flex", justifyContent: "center", alignItems: "center"}}/>
-                        </IconButton>
-                    </div>
-
-            
-
-                    <Button onClick={mintFromCollection}>
-                        <h3>Mint</h3>
-                    </Button>
-                </div>
-
-                <div className="artistInfo">
-        
-                    <div style={{width:"50%", marginLeft:"5%", minWidth: "50vh"}} className="box" >
-                      <div style={{margin:"5%"}}>
-                        <h1>About</h1>
-                        
-                        <h3 > {collection["description"]}</h3> 
-                        <iframe  src="https://open.spotify.com/embed/artist/3q7HBObVc0L8jNeTe5Gofh?utm_source=generator" width="100%" height="380" frameBorder="0" allowFullScreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"/>
-                        </div> 
-                    </div>
-                    
-                    <div style={{width:"50%", marginLeft:"5%", minWidth: "50vh"}} className="statsInfo box">
-                      <div style={{margin:"5%"}}>
-                          <h1>Stats</h1>
-                          <h3>{"Monthly listener: " + "532423423"}</h3> 
-                          <h3>{"Monthly streams: " + "1002423423"}</h3> 
-                      </div>
-                    </div>
-                </div>
-                
-                
+                <Button onClick={mintFromCollection}>
+                  <h3>Mint</h3>
+                </Button>
+              </div>
             </div>
+            <div className="grid">
+              <div className="statsInfo box">
+                <h1>About</h1>
+
+                <h3> {collection["description"]}</h3>
+                <iframe
+                  src="https://open.spotify.com/embed/artist/3q7HBObVc0L8jNeTe5Gofh?utm_source=generator"
+                  width="100%"
+                  height="380"
+                  frameBorder="0"
+                  allowFullScreen=""
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                />
+              </div>
+
+              <div className="statsInfo box">
+                <h1>Stats</h1>
+                <h3>{"Monthly listener: " + "532423423"}</h3>
+                <h3>{"Monthly streams: " + "1002423423"}</h3>
+              </div>
+            </div>
+          </>
         ) : (
-            <div className="grid" onClick={props.connectWallet}>
-                <div className="card">
-                    <h3>Connect wallet</h3>
-                    <p>Connect your wallet to proceed</p>
-                </div>
+          <div className="grid" onClick={props.connectWallet}>
+            <div className="card">
+              <h3>Connect wallet</h3>
+              <p>Connect your wallet to proceed</p>
             </div>
+          </div>
         )}
       </main>
 
       <footer></footer>
 
       <style jsx>{`
-
-
         .box {
-            box-shadow:
-            0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+          box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
             0 6.7px 5.3px rgba(0, 0, 0, 0.048),
             0 12.5px 10px rgba(0, 0, 0, 0.06),
             0 22.3px 17.9px rgba(0, 0, 0, 0.072),
             0 41.8px 33.4px rgba(0, 0, 0, 0.086),
-            0 100px 80px rgba(0, 0, 0, 0.12)
-            ;
+            0 100px 80px rgba(0, 0, 0, 0.12);
 
-
-
-            border-style: outset;
-            margin: 100px auto;
-            background: white;
-            border-radius: 15px;
+          border-style: outset;
+          padding: 30px;
+          background: white;
+          border-radius: 15px;
         }
 
         .container {
@@ -201,40 +270,40 @@ export default function Home(props) {
         div.imgPreview {
           border: grey 2px solid;
         }
-        
-        
-        .statsInfo {
-            display: flex;
-            width: 100%;
-            flex-direction: column;
-          }
 
-          
-          .collectionInfo {
-            display: flex;
-            width: 100%;
-            justify-content: space-between;
-            flex-direction: row;
-          }
+        .mintInfo {
+          width: 50%;
+        }
+
+        .statsInfo {
+          display: flex;
+          width: 47%;
+          min-height: 700px;
+          flex-direction: column;
+        }
+
+        .collectionInfo {
+          display: flex;
+          width: 100%;
+          justify-content: space-between;
+          flex-direction: row;
+        }
 
         .amountPicker {
-            display: flex;
-            width: 20%;
-            justify-content: space-between;
-            flex-direction: row;
-          }
+          display: flex;
+          width: 20%;
+          justify-content: space-between;
+          flex-direction: row;
+        }
 
-          
-
-          .mintingInfo {
-            min-width: 50vh;
-            display: flex;
-            width: 30%;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            
-          }
+        .mintingInfo {
+          min-width: 50vh;
+          display: flex;
+          width: 30%;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+        }
 
         .mainContainer {
           display: flex;
@@ -245,11 +314,11 @@ export default function Home(props) {
         }
 
         .artistInfo {
-            display: flex;
-            width: 100%;
-            justify-content: space-between;
-            flex-direction: row;
-          }
+          display: flex;
+          width: 100%;
+          justify-content: space-between;
+          flex-direction: row;
+        }
 
         .fileInputContainer {
           min-width: 400px;
@@ -352,6 +421,15 @@ export default function Home(props) {
 
         .logo {
           height: 1em;
+        }
+
+        .grid {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-wrap: wrap;
+          margin-top: 5rem;
+          justify-content: space-between;
         }
 
         @media (max-width: 600px) {
