@@ -186,8 +186,8 @@ export default function Home(props) {
                 </Button>
               </div>
             </div>
-            <div className="grid">
-              <div className="statsInfo box">
+            <div className="wide">
+              <div className="statsInfo box" style={{ float: "right" }}>
                 <h1>About</h1>
 
                 <h3> {collection["description"]}</h3>
@@ -200,8 +200,10 @@ export default function Home(props) {
                   allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                 />
               </div>
+            </div>
 
-              <div className="statsInfo box">
+            <div className="wide">
+              <div className="statsInfo box" style={{ float: "left" }}>
                 <h1>Stats</h1>
                 <h3>{"Monthly listener: " + "532423423"}</h3>
                 <h3>{"Monthly streams: " + "1002423423"}</h3>
@@ -235,6 +237,10 @@ export default function Home(props) {
           border-radius: 15px;
         }
 
+        .wide {
+          width: 100%;
+        }
+
         .container {
           min-height: 100vh;
           padding: 0 0.5rem;
@@ -242,7 +248,6 @@ export default function Home(props) {
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          background: grey;
         }
         .backButton {
           position: absolute;
@@ -277,8 +282,11 @@ export default function Home(props) {
 
         .statsInfo {
           display: flex;
-          width: 47%;
-          min-height: 700px;
+          width: 40%;
+          margin: 5rem;
+          min-height: 300px;
+          margin-bottom: 1rem;
+          opacity: 0.8;
           flex-direction: column;
         }
 
@@ -448,6 +456,10 @@ export default function Home(props) {
           font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
             Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
             sans-serif;
+        }
+
+        body {
+          background-image: url("/background.jpg");
         }
 
         * {
