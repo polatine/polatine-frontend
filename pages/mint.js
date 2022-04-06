@@ -90,34 +90,27 @@ export default function Home(props) {
 
         {props.status.connected ? (
           <>
-            <div className="grid box">
+            <div className="grid">
               <img
-                width="500px"
+                width="400px"
+                style={{ borderRadius: "10px" }}
                 src={
                   artistInfo ? "https://ipfs.io/ipfs/" + artistInfo.image : ""
                 }
               />
               <div className="mintInfo">
-                <h1>
-                  {"Collection Name: " + collection["name"]}
-                  <br />
-                  {"Minting Price: " + collection["mint_price"] + " ETH"}
-                  <br />
+                <h1>{collection["name"]}</h1>
+                {collection["collection_rights"]}
+                <br />
+                <br />
+                <b>{"Minting Price: " + collection["mint_price"] + " ETH"}</b>
+                <br />
+                <b>
                   {"Claimed: " +
                     collection["total_minted"] +
                     " / " +
                     collection["collection_size"]}{" "}
-                </h1>
-                <h2>{collection["collection_rights"]}</h2>
-                <h3>
-                  <a
-                    href={
-                      "https://etherscan.io/address/" + collection["sc_address"]
-                    }
-                    target="_blank"
-                  >
-                    {"Smartcontract adress: " + collection["sc_address"]}
-                  </a>
+                  <br />
                   <a
                     href={
                       "https://etherscan.io/address/" + collection["aw_address"]
@@ -128,73 +121,70 @@ export default function Home(props) {
                   </a>
                   <br />
                   minting price {mintingPrice}
-                </h3>
-              </div>
+                </b>
+                <div className="mintContainer">
+                  <h1 style={{ textAlign: "center" }}>
+                    {"Cost " +
+                      collection["mint_price"] * mintingAmount +
+                      " ETH"}
+                  </h1>
+                  <h2>Excluding gas fees.</h2>
 
-              <div>
-                <h1>
-                  {"Cost " + collection["mint_price"] * mintingAmount + " ETH"}
-                </h1>
-                <h2>Excluding gas fees.</h2>
+                  <div className="amountPicker">
+                    <IconButton
+                      onClick={() => {
+                        if (mintingAmount - 1 >= 0)
+                          setMintingAmount(mintingAmount - 1);
+                      }}
+                      src={RemoveIcon}
+                    >
+                      <RemoveIcon
+                        style={{
+                          color: "rgb(100,100,100,1)",
+                          width: "35px",
+                          height: "35px",
+                          backgroundColor: "#fff5f5",
+                        }}
+                      />
+                    </IconButton>
+                    <h1>{mintingAmount}</h1>
+                    <IconButton
+                      onClick={() => {
+                        if (
+                          mintingAmount + 1 <=
+                          collection["collection_size"] -
+                            collection["total_minted"]
+                        )
+                          setMintingAmount(mintingAmount + 1);
+                      }}
+                    >
+                      <AddIcon
+                        style={{
+                          color: "rgb(100,100,100,1)",
+                          width: "35px",
+                          height: "35px",
+                          backgroundColor: "#fff5f5",
+                        }}
+                      />
+                    </IconButton>
+                  </div>
 
-                <div className="amountPicker">
-                  <IconButton
-                    onClick={() => {
-                      if (mintingAmount - 1 >= 0)
-                        setMintingAmount(mintingAmount - 1);
-                    }}
-                  >
-                    <RemoveIcon
-                      style={{
-                        color: "rgb(100,100,100,1)",
-                        width: "35px",
-                        height: "35px",
-                        backgroundColor: "#fff5f5",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    />
-                  </IconButton>
-                  <h1>{mintingAmount}</h1>
-                  <IconButton
-                    onClick={() => {
-                      if (
-                        mintingAmount + 1 <=
-                        collection["collection_size"] -
-                          collection["total_minted"]
-                      )
-                        setMintingAmount(mintingAmount + 1);
-                    }}
-                  >
-                    <AddIcon
-                      style={{
-                        color: "rgb(100,100,100,1)",
-                        width: "35px",
-                        height: "35px",
-                        backgroundColor: "#fff5f5",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    />
-                  </IconButton>
+                  <Button onClick={mintFromCollection}>
+                    <h3>Mint</h3>
+                  </Button>
                 </div>
-
-                <Button onClick={mintFromCollection}>
-                  <h3>Mint</h3>
-                </Button>
               </div>
             </div>
+
             <div className="wide">
               <div className="statsInfo box" style={{ float: "right" }}>
                 <h1>About</h1>
 
-                <h3> {collection["description"]}</h3>
+                {collection["description"]}
                 <iframe
                   src="https://open.spotify.com/embed/artist/3q7HBObVc0L8jNeTe5Gofh?utm_source=generator"
                   width="100%"
-                  height="380"
+                  height="180"
                   frameBorder="0"
                   allowFullScreen=""
                   allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
@@ -205,8 +195,9 @@ export default function Home(props) {
             <div className="wide">
               <div className="statsInfo box" style={{ float: "left" }}>
                 <h1>Stats</h1>
-                <h3>{"Monthly listener: " + "532423423"}</h3>
-                <h3>{"Monthly streams: " + "1002423423"}</h3>
+                {"Monthly listener: " + "532423423"}
+                <br />
+                {"Monthly streams: " + "1002423423"}
               </div>
             </div>
           </>
@@ -239,6 +230,12 @@ export default function Home(props) {
 
         .wide {
           width: 100%;
+        }
+
+        .mintContainer {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
 
         .container {
@@ -299,8 +296,10 @@ export default function Home(props) {
 
         .amountPicker {
           display: flex;
-          width: 20%;
-          justify-content: space-between;
+          align-items: center;
+          justify-content: space-evenly;
+          width: 100%;
+          height: 50px;
           flex-direction: row;
         }
 
