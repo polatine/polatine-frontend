@@ -327,6 +327,10 @@ export default function Home(props) {
             sans-serif;
         }
 
+        body {
+          background-image: url("/background.jpg");
+        }
+
         * {
           box-sizing: border-box;
         }
