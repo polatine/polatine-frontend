@@ -1,44 +1,19 @@
-import Head from "next/head";
-import { useState } from "react";
-import { useRouter } from "next/router";
-import { pinFileToIPFS } from "../components/pinata";
-import TextField from "@mui/material/TextField";
-import { useEffect } from "react";
-import { styled } from "@mui/material/styles";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import Stack from "@mui/material/Stack";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import Paper from "@mui/material/Paper";
-import Web3 from "web3";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import { styled } from "@mui/material/styles";
 import axios from "axios";
-
-import {
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControl,
-  FormGroup,
-  FormControlLabel,
-  FormLabel,
-  Checkbox,
-} from "@mui/material/";
-
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import Web3 from "web3";
 import collection from "../testdata/collection1.json";
 
-import { width } from "@mui/system";
-
 export default function Home(props) {
-  const [file, setFile] = useState();
-  const [name, setName] = useState();
-  const [desc, setDesc] = useState();
   const [mintingAmount, setMintingAmount] = useState(0);
   const [mintingPrice, setMintingPrice] = useState();
   const [artistInfo, setArtistInfo] = useState();
-  const Input = styled("input")({
-    display: "none",
-  });
 
   const mintFromCollection = async () => {
     const price = Web3.utils.toWei(
@@ -99,29 +74,6 @@ export default function Home(props) {
                 }
               />
               <div className="mintInfo">
-                <h1>{collection["name"]}</h1>
-                {collection["collection_rights"]}
-                <br />
-                <br />
-                <b>{"Minting Price: " + collection["mint_price"] + " ETH"}</b>
-                <br />
-                <b>
-                  {"Claimed: " +
-                    collection["total_minted"] +
-                    " / " +
-                    collection["collection_size"]}{" "}
-                  <br />
-                  <a
-                    href={
-                      "https://etherscan.io/address/" + collection["aw_address"]
-                    }
-                    target="_blank"
-                  >
-                    {"Artist wallet adress: " + collection["aw_address"]}
-                  </a>
-                  <br />
-                  minting price {mintingPrice}
-                </b>
                 <div className="mintContainer">
                   <h1 style={{ textAlign: "center" }}>
                     {"Cost " +
@@ -173,6 +125,29 @@ export default function Home(props) {
                     <h3>Mint</h3>
                   </Button>
                 </div>
+                <h1>{collection["name"]}</h1>
+                {collection["collection_rights"]}
+                <br />
+                <br />
+                <b>{"Minting Price: " + collection["mint_price"] + " ETH"}</b>
+                <br />
+                <b>
+                  {"Claimed: " +
+                    collection["total_minted"] +
+                    " / " +
+                    collection["collection_size"]}{" "}
+                  <br />
+                  <a
+                    href={
+                      "https://etherscan.io/address/" + collection["aw_address"]
+                    }
+                    target="_blank"
+                  >
+                    {"Artist wallet adress: " + collection["aw_address"]}
+                  </a>
+                  <br />
+                  minting price {mintingPrice}
+                </b>
               </div>
             </div>
 
@@ -278,9 +253,7 @@ export default function Home(props) {
         .statsInfo {
           display: flex;
           width: 40%;
-          margin: 5rem;
           min-height: 300px;
-          margin-bottom: 1rem;
           opacity: 0.8;
           flex-direction: column;
         }
@@ -434,6 +407,7 @@ export default function Home(props) {
           justify-content: center;
           flex-wrap: wrap;
           margin-top: 5rem;
+          margin-bottom: 10rem;
           justify-content: space-between;
         }
 

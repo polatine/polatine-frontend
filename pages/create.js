@@ -1,25 +1,19 @@
-import Head from "next/head";
-import { useState } from "react";
-import { useRouter } from "next/router";
-import { pinFileToIPFS } from "../components/pinata";
-import TextField from "@mui/material/TextField";
-import { styled } from "@mui/material/styles";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import Stack from "@mui/material/Stack";
 import {
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControl,
-  FormGroup,
-  FormControlLabel,
-  FormLabel,
   Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  FormLabel,
+  Button,
+  Stack,
+  styled,
+  TextField,
 } from "@mui/material/";
-
-import { width } from "@mui/system";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { useState } from "react";
 import Web3 from "web3";
+import { pinFileToIPFS } from "../components/pinata";
 
 export default function Home(props) {
   const [file, setFile] = useState();
