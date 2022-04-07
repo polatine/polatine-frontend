@@ -155,8 +155,6 @@ export default function Home(props) {
         )}
       </main>
 
-      <footer></footer>
-
       <style jsx>{`
         .container {
           min-height: 100vh;
@@ -167,7 +165,7 @@ export default function Home(props) {
           align-items: center;
         }
         .backButton {
-          position: absolute;
+          position: fixed;
           font-size: 40pt;
           left: 100px;
           top: 40px;

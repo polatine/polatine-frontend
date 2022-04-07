@@ -186,8 +186,6 @@ export default function Home(props) {
         )}
       </main>
 
-      <footer></footer>
-
       <style jsx>{`
         .box {
           box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
@@ -220,7 +218,7 @@ export default function Home(props) {
           align-items: center;
         }
         .backButton {
-          position: absolute;
+          position: fixed;
           font-size: 40pt;
           left: 100px;
           top: 40px;
