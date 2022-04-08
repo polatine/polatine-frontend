@@ -3,14 +3,50 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="container">
+    <>
       <Head>
         <title>Polatine</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        <h1 className="title">Polatine</h1>
+        <Link href="mint">
+          <a
+            className="menuItem"
+            style={{
+              backgroundImage:
+                "linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);",
+            }}
+          >
+            Mint
+            <img src="/blhome.png" className="blhome" />
+          </a>
+        </Link>
+        <Link href="create">
+          <a
+            className="menuItem"
+            style={{
+              backgroundImage:
+                "linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);",
+            }}
+          >
+            Create
+            <img src="/rhome.png" className="rhome" />
+          </a>
+        </Link>
+        <Link href="profile">
+          <a
+            className="menuItem"
+            style={{
+              backgroundImage:
+                "linear-gradient(45deg, #FBDA61 0%, #FF5ACD 100%);",
+            }}
+          >
+            Collection
+            <img src="/mhome.png" className="mhome" />
+          </a>
+        </Link>
+        {/* <h1 className="title">Polatine</h1>
 
         <p className="description">The NFT Platform for Artists</p>
 
@@ -39,10 +75,25 @@ export default function Home() {
         <img src="/blhome.png" className="blhome" />
         <img src="/rhome.png" className="rhome" />
         <img src="/tlhome.png" className="tlhome" />
-        <img src="/mhome.png" className="mhome" />
+        <img src="/mhome.png" className="mhome" /> */}
       </main>
 
       <style jsx>{`
+        .menuItem {
+          width: 100%;
+          padding-top: 4rem;
+          position: relative;
+          text-align: center;
+          height: 100%;
+          font-size: 4rem;
+          font-weight: 300;
+          transition: height 0.3s ease-in-out;
+        }
+        .menuItem:hover {
+          height: 140%;
+          transition: height 0.3s ease-in-out;
+        }
+
         img.blhome {
           width: 20%;
           position: absolute;
@@ -64,25 +115,15 @@ export default function Home() {
         img.mhome {
           width: 20%;
           position: absolute;
-          z-index: -1;
-        }
-        .container {
-          min-height: 100vh;
-          padding: 0 0.5rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
+          z-index: 0;
         }
 
         main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
           z-index: 1;
+          display: flex;
           flex-direction: column;
-          justify-content: center;
-          align-items: center;
+          width: 100%;
+          height: 100vh;
         }
 
         footer {
@@ -187,13 +228,12 @@ export default function Home() {
           font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
             Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
             sans-serif;
-          background-image: url("/background.jpg");
         }
 
         * {
           box-sizing: border-box;
         }
       `}</style>
-    </div>
+    </>
   );
 }
