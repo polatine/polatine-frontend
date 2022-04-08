@@ -143,7 +143,7 @@ export default function Home(props) {
                     }
                     target="_blank"
                   >
-                    {"Artist wallet adress: " + collection["aw_address"]}
+                    {"Subcollection address: " + collection["aw_address"]}
                   </a>
                   <br />
                   minting price {mintingPrice}
