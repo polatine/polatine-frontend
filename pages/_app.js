@@ -2,6 +2,7 @@
 import Web3 from "web3";
 import { CONTRACT_ABI, CONTRACT_ADDRESS } from "../contract/config";
 import { useState, useEffect } from "react";
+import "../public/global.css";
 
 const validChain = "0X4";
 var web3;
