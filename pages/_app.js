@@ -71,7 +71,7 @@ function MyApp({ Component, pageProps, router }) {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <AnimatePresence exitBeforeEnter>
+    <AnimatePresence exitBeforeEnter initial={false}>
       <Component
         contract={contract}
         status={status}
