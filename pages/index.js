@@ -14,8 +14,7 @@ export default function Home() {
           <a
             className="menuItem"
             style={{
-              backgroundImage:
-                "linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);",
+              background: "linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%)",
             }}
           >
             Mint
@@ -26,8 +25,7 @@ export default function Home() {
           <a
             className="menuItem"
             style={{
-              backgroundImage:
-                "linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);",
+              background: "linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%)",
             }}
           >
             Create
@@ -38,8 +36,7 @@ export default function Home() {
           <a
             className="menuItem"
             style={{
-              backgroundImage:
-                "linear-gradient(45deg, #FBDA61 0%, #FF5ACD 100%);",
+              background: "linear-gradient(45deg, #FBDA61 0%, #FF5ACD 100%)",
             }}
           >
             Collection
@@ -80,6 +77,7 @@ export default function Home() {
 
       <style jsx>{`
         .menuItem {
+          overflow: hidden;
           width: 100%;
           padding-top: 4rem;
           position: relative;
@@ -115,7 +113,6 @@ export default function Home() {
         img.mhome {
           width: 20%;
           position: absolute;
-          z-index: 0;
         }
 
         main {
