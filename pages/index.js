@@ -43,36 +43,6 @@ export default function Home() {
             <img src="/mhome.png" className="mhome" />
           </a>
         </Link>
-        {/* <h1 className="title">Polatine</h1>
-
-        <p className="description">The NFT Platform for Artists</p>
-
-        <div className="grid">
-          <Link href="mint">
-            <a className="card">
-              <h3>Mint</h3>
-              <p>Mint features, cameos and so on.</p>
-            </a>
-          </Link>
-
-          <Link href="create">
-            <a className="card">
-              <h3>Create Collection</h3>
-              <p>Enable your fans to mint your NFTs.</p>
-            </a>
-          </Link>
-
-          <Link href="profile">
-            <a className="card">
-              <h3>My NFTS</h3>
-              <p>List the NFTs in your possession. Powered by OpenSea.</p>
-            </a>
-          </Link>
-        </div>
-        <img src="/blhome.png" className="blhome" />
-        <img src="/rhome.png" className="rhome" />
-        <img src="/tlhome.png" className="tlhome" />
-        <img src="/mhome.png" className="mhome" /> */}
       </main>
 
       <style jsx>{`
