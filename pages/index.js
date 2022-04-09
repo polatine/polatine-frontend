@@ -1,9 +1,10 @@
 import Head from "next/head";
 import Link from "next/link";
+import PageAnimation from "../components/PageAnimation";
 
 export default function Home() {
   return (
-    <>
+    <PageAnimation>
       <Head>
         <title>Polatine</title>
         <link rel="icon" href="/favicon.ico" />
@@ -93,6 +94,6 @@ export default function Home() {
           height: 100vh;
         }
       `}</style>
-    </>
+    </PageAnimation>
   );
 }
