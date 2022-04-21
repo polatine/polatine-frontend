@@ -31,15 +31,20 @@ const RoundedTextField = styled(TextField)({
   },
 });
 
+const RoundedButton = styled(Button)({
+  borderRadius: "50px",
+  boxShadow: "none",
+  "&:hover": {
+    boxShadow: "none",
+  },
+});
+
 export default function Home(props) {
   const [file, setFile] = useState();
   const [name, setName] = useState();
   const [desc, setDesc] = useState();
   const [collectionSize, setCollectionSize] = useState("");
   const [mintingPrice, setMintingPrice] = useState();
-  const Input = styled("input")({
-    display: "none",
-  });
 
   const mint = async () => {
     pinFileToIPFS(file, name, desc).then((IpfsHash) => {
@@ -71,83 +76,31 @@ export default function Home(props) {
             <div className="settingsColumn">
               <h1 className="settingsTitle">Create a collection</h1>
               gravida. Quisque dolor massa,
-              <RoundedTextField fullWidth label="Collection name" />
+              <RoundedTextField
+                fullWidth
+                placeholder="Name"
+                onChange={(event) => setName(event.target.value)}
+              />
               pulvinar sit amet justo sed, consequat imperdiet arcu. Donec
               convallis, leo a tincidunt pharetra, augue sapien tempor magna, in
-              <RoundedTextField fullWidth label="Collection name" />
+              <RoundedTextField
+                fullWidth
+                placeholder="Description"
+                onChange={(event) => setDesc(event.target.value)}
+              />
               venenatis ligula risus sit amet ex. Vestibulum ante ipsum primis
               in faucibus orci luctus et ultrices posuere cubilia curae; In
               egestas, neque nec pellentesque dignissim, ipsum massa vehicula
-              <RoundedTextField fullWidth label="Collection name" />
-              metus, et posuere lectus lectus sed lorem. Nullam id gravida
-              mauris, non venenatis risus. Fusce sagittis tristique maximus.
-              Suspendisse tempor imperdiet magna et lacinia. Proin mollis
-              dignissim gravida. Aliquam erat volutpat. Suspendisse potenti.
-              Cras non blandit elit, vel congue massa. Vestibulum suscipit ipsum
-              libero, at egestas massa volutpat sit amet. Aenean auctor ipsum
-              eget mauris varius, id semper urna cursus. Sed a aliquet sapien.
-              In tristique tincidunt sapien at tincidunt. Integer porta, magna
-              eu suscipit efficitur, libero eros rhoncus purus, nec dapibus quam
-              metus vel libero. Cras a augue vulputate, interdum diam id,
-              aliquet nulla. Vestibulum quis nisl dui. Nullam volutpat sit amet
-              leo nec pharetra. Sed fringilla placerat ex, sed feugiat sapien
-              accumsan non. Phasellus tellus dolor, vehicula vitae vulputate ut,
-              tempor et lorem. Phasellus at urna a lacus placerat finibus.
-              Suspendisse nec pellentesque risus. Aliquam suscipit odio eu mi
-              viverra, sit amet sagittis ante pharetra. Morbi vestibulum nulla
-              bibendum odio elementum aliquet. Cras molestie efficitur arcu,
-              vitae blandit neque volutpat in. Etiam nec nibh semper nisi porta
-              tristique. Mauris euismod, eros eget sagittis porttitor, lectus
-              mauris luctus dolor, id rutrum augue justo eget eros. Vestibulum
-              nisi ligula, imperdiet sed ullamcorper a, blandit in lacus.
-              Curabitur erat mauris, aliquet ut volutpat eget, blandit eu nunc.
-              Fusce vehicula diam at vehicula tempor. Fusce sed urna maximus,
-              feugiat ex eget, ultrices purus. Ut at ipsum cursus, pharetra elit
-              ut, ultrices massa. Donec mi nunc, dapibus congue dictum a,
-              blandit sed neque. Nunc tincidunt id ante sed accumsan. Proin
-              efficitur eros velit, eget blandit leo auctor non. Nunc dui purus,
-              congue vitae rutrum at, venenatis id tellus. Donec non leo
-              scelerisque, malesuada odio nec, ultricies nisl. Mauris egestas
-              maximus mauris dapibus maximus. Phasellus bibendum vestibulum
-              lorem, a rutrum lacus mollis a. Quisque varius rutrum fermentum.
-              Sed purus velit, condimentum ut congue ac, gravida at risus.
-              Quisque vitae maximus ipsum. Praesent sit amet urna at odio ornare
-              dapibus ac id lorem. Donec nulla ligula, ultrices eget ligula eu,
-              pretium varius tellus. Nam ullamcorper, massa sed cursus congue,
-              orci est blandit nisi, sit amet vulputate metus justo in diam.
-              Maecenas dapibus vel lorem vel accumsan. Fusce eu leo metus. Fusce
-              egestas id dolor sed consequat. Duis et tortor tellus. Nullam
-              placerat sed justo sit amet dignissim. Nam efficitur erat sed
-              magna congue cursus. Suspendisse auctor enim tincidunt risus
-              elementum, ut ornare ligula porta. Suspendisse at justo arcu.
-              Suspendisse sit amet ante vitae velit finibus dignissim ut at
-              turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Pellentesque vestibulum nunc urna, non ullamcorper tortor
-              ultricies id. Ut lacus ligula, ullamcorper id mauris quis, cursus
-              lobortis metus. Ut accumsan urna libero, nec vestibulum metus
-              posuere maximus. Nam vel viverra quam. Vestibulum sem magna,
-              condimentum facilisis magna id, maximus condimentum libero. Sed at
-              mi quam. Aenean dignissim pharetra quam sit amet gravida. Quisque
-              dolor massa, pulvinar sit amet justo sed, consequat imperdiet
-              arcu. Donec convallis, leo a tincidunt pharetra, augue sapien
-              tempor magna, in venenatis ligula risus sit amet ex. Vestibulum
-              ante ipsum primis in faucibus orci luctus et ultrices posuere
-              cubilia curae; In egestas, neque nec pellentesque dignissim, ipsum
-              massa vehicula metus, et posuere lectus lectus sed lorem. Nullam
-              id gravida mauris, non venenatis risus. Fusce sagittis tristique
-              maximus. Suspendisse tempor imperdiet magna et lacinia. Proin
-              mollis dignissim gravida. Aliquam erat volutpat. Suspendisse
-              potenti. Cras non blandit elit, vel congue massa. Vestibulum
-              suscipit ipsum libero, at egestas massa volutpat sit amet. Aenean
-              auctor ipsum eget mauris varius, id semper urna cursus. Sed a
-              aliquet sapien. In tristique tincidunt sapien at tincidunt.
-              Integer porta, magna eu suscipit efficitur, libero eros rhoncus
-              purus, nec dapibus quam metus vel libero. Cras a augue vulputate,
-              interdum diam id, aliquet nulla. Vestibulum quis nisl dui. Nullam
-              volutpat sit amet leo nec pharetra. Sed fringilla placerat ex, sed
-              feugiat sapien accumsan non. Phasellus tellus dolor, vehicula
-              vitae vulputate ut, tempor et lorem. Phasellus at urna a lacus
-              placerat finibus. Suspendisse nec pellentesque risus. Aliquam
+              <RoundedTextField
+                fullWidth
+                placeholder="Collection Size"
+                onChange={(event) => setCollectionSize(event.target.value)}
+              />
+              <RoundedTextField
+                fullWidth
+                placeholder="Minting Price"
+                onChange={(event) => setMintingPrice(event.target.value)}
+              />
               suscipit odio eu mi viverra, sit amet sagittis ante metus justo in
               diam. Maecenas dapibus vel lorem vel accumsan. Fusce eu leo metus.
               Fusce egestas id dolor sed consequat. Duis et tortor tellus.
@@ -156,6 +109,9 @@ export default function Home(props) {
               elementum, ut ornare ligula porta. Suspendisse at justo arcu.
               Suspendisse sit amet ante vitae velit finibus dignissim ut at
               turpis.
+              <RoundedButton fullWidth variant="contained">
+                Mint
+              </RoundedButton>
             </div>
           </>
         ) : (
