@@ -18,6 +18,9 @@ import NFTCard from "../components/NFTCard";
 
 const RoundedTextField = styled(TextField)({
   "& .MuiOutlinedInput-root": {
+    margin: "2rem 0",
+    fontSize: "14pt",
+    paddingLeft: "6px",
     "& fieldset": {
       borderRadius: "50px",
       border: "1px solid grey",
@@ -33,6 +36,8 @@ const RoundedTextField = styled(TextField)({
 
 const RoundedButton = styled(Button)({
   borderRadius: "50px",
+  margin: "4rem 0",
+  padding: "10px 0",
   boxShadow: "none",
   "&:hover": {
     boxShadow: "none",
@@ -71,7 +76,13 @@ export default function Home(props) {
         {props.status.connected ? (
           <>
             <div className="previewView">
-              <NFTCard />
+              <NFTCard
+                file="/basedsloth.png"
+                name={name}
+                desc={desc}
+                collectionSize={collectionSize}
+                mintingPrice={mintingPrice}
+              />
             </div>
             <div className="settingsColumn">
               <h1 className="settingsTitle">Create a collection</h1>
@@ -150,7 +161,7 @@ export default function Home(props) {
           background: white;
           overflow-y: scroll;
           overflow-x: hidden;
-          padding: 9rem 2rem;
+          padding: 9rem 2rem 30rem 2rem;
         }
         .settingsColumn::-webkit-scrollbar {
           display: none;
