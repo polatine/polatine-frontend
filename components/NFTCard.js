@@ -12,7 +12,7 @@ export default function NFTCard(props) {
           <div className="imgPreview">
             <img
               className="imgPreview"
-              src="/basedsloth.png"
+              src={URL.createObjectURL(props.file)}
               alt="img"
               style={{ display: "block", margin: "auto" }}
             />
@@ -21,20 +21,26 @@ export default function NFTCard(props) {
             </div>
           </div>
         ) : (
-          <div className="imgPreview">Hello</div>
+          <div className="imgPreview">
+            <div className="price nftTitle">
+              {props.mintingPrice} {props.mintingPrice ? "eth" : ""}
+            </div>
+          </div>
         )}
         <div className="description">{props.desc}</div>
       </div>
 
       <style jsx>{`
         .NFTCard {
-          background: grey;
+          // border: 2px solid grey;
           border-radius: 20px;
           width: 30rem;
           height: 40rem;
           display: flex;
           flex-direction: column;
           align-items: center;
+          box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6),
+            0 15px 12px rgba(0, 0, 0, 0.22);
         }
 
         .imgPreview {

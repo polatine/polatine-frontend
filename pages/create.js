@@ -8,6 +8,7 @@ import {
   Stack,
   styled,
   TextField,
+  Input,
 } from "@mui/material/";
 import Head from "next/head";
 import { useState } from "react";
@@ -75,17 +76,33 @@ export default function Home(props) {
       <main>
         {props.status.connected ? (
           <>
-            <div className="previewView">
+            <section className="previewView">
               <NFTCard
-                file="/basedsloth.png"
+                file={file}
                 name={name}
                 desc={desc}
                 collectionSize={collectionSize}
                 mintingPrice={mintingPrice}
               />
-            </div>
-            <div className="settingsColumn">
+            </section>
+            <section className="settingsColumn">
               <h1 className="settingsTitle">Create a collection</h1>
+              <div
+                fullWidth
+                style={{
+                  textAlign: "center",
+                }}
+              >
+                <RoundedButton variant="contained" component="label">
+                  <img src="/upload.svg" />
+                  <input
+                    hidden
+                    accept="image/*"
+                    type="file"
+                    onChange={(event) => setFile(event.target.files[0])}
+                  />
+                </RoundedButton>
+              </div>
               gravida. Quisque dolor massa,
               <RoundedTextField
                 fullWidth
@@ -105,11 +122,13 @@ export default function Home(props) {
               <RoundedTextField
                 fullWidth
                 placeholder="Collection Size"
+                type="number"
                 onChange={(event) => setCollectionSize(event.target.value)}
               />
               <RoundedTextField
                 fullWidth
                 placeholder="Minting Price"
+                type="number"
                 onChange={(event) => setMintingPrice(event.target.value)}
               />
               suscipit odio eu mi viverra, sit amet sagittis ante metus justo in
@@ -123,7 +142,7 @@ export default function Home(props) {
               <RoundedButton fullWidth variant="contained">
                 Mint
               </RoundedButton>
-            </div>
+            </section>
           </>
         ) : (
           <div className="grid" onClick={props.connectWallet}>
@@ -139,8 +158,9 @@ export default function Home(props) {
         main {
           width: 100%;
           height: 100vh;
-          display: flex;
-          flex-direction: row;
+          background: white;
+          overflow-y: scroll;
+          overflow-x: hidden;
         }
         .settingsTitle {
           font-size: 4rem;
@@ -148,20 +168,22 @@ export default function Home(props) {
           font-weight: 300;
         }
         .previewView {
-          min-width: 77%;
-          min-height: 1vh;
+          width: 77%;
+          height: 100%;
           background: white;
           align-items: center;
           justify-content: center;
           display: flex;
+          position: fixed;
+          top: 0;
+          pointer-events: none;
         }
         .settingsColumn {
-          min-width: 23%;
+          width: 23%;
           min-height: 100%;
           background: white;
-          overflow-y: scroll;
-          overflow-x: hidden;
-          padding: 9rem 2rem 30rem 2rem;
+          padding: 7rem 2rem 30rem 2rem;
+          float: right;
         }
         .settingsColumn::-webkit-scrollbar {
           display: none;
