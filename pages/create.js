@@ -200,6 +200,7 @@ export default function Home(props) {
                 disabled={5 > pageProgress}
                 fullWidth
                 variant="contained"
+                onClick={mint}
               >
                 Mint
               </RoundedButton>
