@@ -238,7 +238,7 @@ export default function Home(props) {
         }
         header {
           position: fixed;
-          width: 100%;
+          width: 26%;
           display: flex;
           justify-content: flex-end;
           padding: 1rem 4rem;
