@@ -12,7 +12,7 @@ import {
   Divider,
 } from "@mui/material/";
 import Head from "next/head";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Web3 from "web3";
 import { pinFileToIPFS } from "../components/pinata";
 import PageAnimation from "../components/PageAnimation";
@@ -90,6 +90,7 @@ export default function Home(props) {
                 file={file}
                 name={name}
                 desc={desc}
+                pageProgress={pageProgress}
                 collectionSize={collectionSize}
                 mintingPrice={mintingPrice}
               />
@@ -109,47 +110,97 @@ export default function Home(props) {
                     hidden
                     accept="image/*"
                     type="file"
-                    onChange={(event) => setFile(event.target.files[0])}
+                    onChange={(event) => {
+                      setFile(event.target.files[0]);
+                      setPageProgress(Math.max(pageProgress, 1));
+                    }}
                   />
                 </RoundedButton>
               </div>
               {/* <MarginedDivider /> */}
 
-              <h2 className="spaced">Title</h2>
+              <h2
+                className="spaced"
+                style={
+                  1 <= pageProgress ? { color: "black" } : { color: "#aeaeae" }
+                }
+              >
+                Title
+              </h2>
               <RoundedTextField
                 fullWidth
+                disabled={1 > pageProgress}
                 placeholder=""
-                onChange={(event) => setName(event.target.value)}
+                onChange={(event) => {
+                  setName(event.target.value);
+                  setPageProgress(Math.max(pageProgress, 2));
+                }}
               />
-              <h2>Description</h2>
+              <h2
+                style={
+                  2 <= pageProgress ? { color: "black" } : { color: "#aeaeae" }
+                }
+              >
+                Description
+              </h2>
               <RoundedTextField
                 multiline
                 fullWidth
+                disabled={2 > pageProgress}
                 placeholder="Description"
-                onChange={(event) => setDesc(event.target.value)}
+                onChange={(event) => {
+                  setDesc(event.target.value);
+                  setPageProgress(Math.max(pageProgress, 3));
+                }}
               />
               {/* <MarginedDivider /> */}
 
-              <h2 className="spaced">Collection size</h2>
+              <div className="spacediv"></div>
+              <h2
+                className="spaced"
+                style={
+                  3 <= pageProgress ? { color: "black" } : { color: "#aeaeae" }
+                }
+              >
+                Collection size
+              </h2>
               <RoundedTextField
                 fullWidth
                 placeholder="Collection Size"
+                disabled={3 > pageProgress}
                 type="number"
-                onChange={(event) => setCollectionSize(event.target.value)}
+                onChange={(event) => {
+                  setCollectionSize(event.target.value);
+                  setPageProgress(Math.max(pageProgress, 4));
+                }}
                 onWheel={(e) => e.target.blur()}
               />
-              <h2>Minting price</h2>
+              <h2
+                style={
+                  4 <= pageProgress ? { color: "black" } : { color: "#aeaeae" }
+                }
+              >
+                Minting price
+              </h2>
               <RoundedTextField
                 fullWidth
                 placeholder="Minting Price"
                 type="number"
-                onChange={(event) => setMintingPrice(event.target.value)}
+                disabled={4 > pageProgress}
+                onChange={(event) => {
+                  setMintingPrice(event.target.value);
+                  setPageProgress(Math.max(pageProgress, 5));
+                }}
                 onWheel={(e) => e.target.blur()}
               />
               {/* <MarginedDivider /> */}
 
               <div className="spaced"></div>
-              <RoundedButton fullWidth variant="contained">
+              <RoundedButton
+                disabled={5 > pageProgress}
+                fullWidth
+                variant="contained"
+              >
                 Mint
               </RoundedButton>
             </section>
@@ -178,6 +229,10 @@ export default function Home(props) {
         }
         .spaced {
           margin-top: 10rem;
+        }
+        .spacediv {
+          min-height: 7rem;
+          min-width: 100%;
         }
         .settingsTitle {
           font-size: 4rem;
