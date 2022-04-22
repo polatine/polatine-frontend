@@ -146,7 +146,7 @@ export default function Home(props) {
                 multiline
                 fullWidth
                 disabled={2 > pageProgress}
-                placeholder="Description"
+                placeholder=""
                 onChange={(event) => {
                   setDesc(event.target.value);
                   setPageProgress(Math.max(pageProgress, 3));
@@ -165,7 +165,7 @@ export default function Home(props) {
               </h2>
               <RoundedTextField
                 fullWidth
-                placeholder="Collection Size"
+                placeholder=""
                 disabled={3 > pageProgress}
                 type="number"
                 onChange={(event) => {
@@ -183,7 +183,7 @@ export default function Home(props) {
               </h2>
               <RoundedTextField
                 fullWidth
-                placeholder="Minting Price"
+                placeholder=""
                 type="number"
                 disabled={4 > pageProgress}
                 onChange={(event) => {
