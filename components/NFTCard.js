@@ -147,7 +147,7 @@ export default function NFTCard(props) {
         }
         .price {
           font-size: 14pt;
-          font-weight: 700;
+          font-weight: 500;
           text-align: right;
         }
         .nftTitle {
