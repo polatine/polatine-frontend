@@ -79,6 +79,7 @@ export default function NFTCard(props) {
           padding: 0 2rem;
           text-align: justify;
           align-self: flex-start;
+          min-height: 5rem;
         }
       `}</style>
     </>

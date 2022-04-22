@@ -9,6 +9,7 @@ import {
   styled,
   TextField,
   Input,
+  Divider,
 } from "@mui/material/";
 import Head from "next/head";
 import { useState } from "react";
@@ -19,9 +20,12 @@ import NFTCard from "../components/NFTCard";
 
 const RoundedTextField = styled(TextField)({
   "& .MuiOutlinedInput-root": {
-    margin: "2rem 0",
+    margin: "0rem 0",
     fontSize: "14pt",
     paddingLeft: "6px",
+    "& textarea": {
+      paddingLeft: "16.5px",
+    },
     "& fieldset": {
       borderRadius: "50px",
       border: "1px solid grey",
@@ -37,7 +41,7 @@ const RoundedTextField = styled(TextField)({
 
 const RoundedButton = styled(Button)({
   borderRadius: "50px",
-  margin: "4rem 0",
+  margin: "0 0",
   padding: "10px 0",
   boxShadow: "none",
   "&:hover": {
@@ -45,7 +49,12 @@ const RoundedButton = styled(Button)({
   },
 });
 
+const MarginedDivider = styled(Divider)({
+  margin: "2rem 0",
+});
+
 export default function Home(props) {
+  const [pageProgress, setPageProgress] = useState(0);
   const [file, setFile] = useState();
   const [name, setName] = useState();
   const [desc, setDesc] = useState();
@@ -93,6 +102,7 @@ export default function Home(props) {
                   textAlign: "center",
                 }}
               >
+                <h2>Cover image</h2>
                 <RoundedButton variant="contained" component="label">
                   <img src="/upload.svg" />
                   <input
@@ -103,42 +113,42 @@ export default function Home(props) {
                   />
                 </RoundedButton>
               </div>
-              gravida. Quisque dolor massa,
+              {/* <MarginedDivider /> */}
+
+              <h2 className="spaced">Title</h2>
               <RoundedTextField
                 fullWidth
-                placeholder="Name"
+                placeholder=""
                 onChange={(event) => setName(event.target.value)}
               />
-              pulvinar sit amet justo sed, consequat imperdiet arcu. Donec
-              convallis, leo a tincidunt pharetra, augue sapien tempor magna, in
+              <h2>Description</h2>
               <RoundedTextField
+                multiline
                 fullWidth
                 placeholder="Description"
                 onChange={(event) => setDesc(event.target.value)}
               />
-              venenatis ligula risus sit amet ex. Vestibulum ante ipsum primis
-              in faucibus orci luctus et ultrices posuere cubilia curae; In
-              egestas, neque nec pellentesque dignissim, ipsum massa vehicula
+              {/* <MarginedDivider /> */}
+
+              <h2 className="spaced">Collection size</h2>
               <RoundedTextField
                 fullWidth
                 placeholder="Collection Size"
                 type="number"
                 onChange={(event) => setCollectionSize(event.target.value)}
+                onWheel={(e) => e.target.blur()}
               />
+              <h2>Minting price</h2>
               <RoundedTextField
                 fullWidth
                 placeholder="Minting Price"
                 type="number"
                 onChange={(event) => setMintingPrice(event.target.value)}
+                onWheel={(e) => e.target.blur()}
               />
-              suscipit odio eu mi viverra, sit amet sagittis ante metus justo in
-              diam. Maecenas dapibus vel lorem vel accumsan. Fusce eu leo metus.
-              Fusce egestas id dolor sed consequat. Duis et tortor tellus.
-              Nullam placerat sed justo sit amet dignissim. Nam efficitur erat
-              sed magna congue cursus. Suspendisse auctor enim tincidunt risus
-              elementum, ut ornare ligula porta. Suspendisse at justo arcu.
-              Suspendisse sit amet ante vitae velit finibus dignissim ut at
-              turpis.
+              {/* <MarginedDivider /> */}
+
+              <div className="spaced"></div>
               <RoundedButton fullWidth variant="contained">
                 Mint
               </RoundedButton>
@@ -162,13 +172,20 @@ export default function Home(props) {
           overflow-y: scroll;
           overflow-x: hidden;
         }
+        h2 {
+          margin: 1rem 0;
+          font-size: 15pt;
+        }
+        .spaced {
+          margin-top: 10rem;
+        }
         .settingsTitle {
           font-size: 4rem;
           text-align: center;
           font-weight: 300;
         }
         .previewView {
-          width: 77%;
+          width: 74%;
           height: 100%;
           background: white;
           align-items: center;
@@ -179,13 +196,13 @@ export default function Home(props) {
           pointer-events: none;
         }
         .settingsColumn {
-          width: 23%;
+          width: 26%;
           min-height: 100%;
           background: white;
-          padding: 7rem 2rem 30rem 2rem;
+          padding: 7rem 4% 30rem 2rem;
           float: right;
         }
-        .settingsColumn::-webkit-scrollbar {
+        ::-webkit-scrollbar {
           display: none;
         }
       `}</style>
