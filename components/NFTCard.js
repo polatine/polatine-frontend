@@ -4,10 +4,20 @@ export default function NFTCard(props) {
   return (
     <>
       <div className="NFTCard">
-        <h1 className="nftTitle">
-          {props.name} {props.collectionSize ? "#" : ""}
-          {props.collectionSize}
-        </h1>
+        <div className="cardHeader">
+          <div className="nftTitle">
+            {props.name} {props.collectionSize ? "#" : ""}
+            {props.collectionSize}
+          </div>
+          {props.mintingPrice ? (
+            <div className="price">
+              {props.mintingPrice} <br />
+              ETH
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
         {props.file ? (
           <div className="imgPreview">
             <img
@@ -16,33 +26,33 @@ export default function NFTCard(props) {
               alt="img"
               style={{ display: "block", margin: "auto" }}
             />
-            <div className="price nftTitle">
-              {props.mintingPrice} {props.mintingPrice ? "eth" : ""}
-            </div>
           </div>
         ) : (
-          <div className="imgPreview">
-            <div className="price nftTitle">
-              {props.mintingPrice} {props.mintingPrice ? "eth" : ""}
-            </div>
-          </div>
+          <div className="imgPreview"></div>
         )}
-        <div className="description">{props.desc}</div>
+        <p className="description">{props.desc}</p>
       </div>
 
       <style jsx>{`
         .NFTCard {
-          // border: 2px solid grey;
           border-radius: 20px;
           width: 30rem;
-          height: 40rem;
+          height: auto;
           display: flex;
           flex-direction: column;
           align-items: center;
           box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6),
             0 15px 12px rgba(0, 0, 0, 0.22);
+          overflow: hidden;
         }
 
+        .cardHeader {
+          padding: 0.7rem 2rem;
+          align-items: center;
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+        }
         .imgPreview {
           width: 27rem;
           height: 27rem;
@@ -51,15 +61,12 @@ export default function NFTCard(props) {
           border-radius: 10px;
         }
         .price {
-          position: absolute;
-          bottom: 20px;
-          right: 20px;
+          font-size: 14pt;
+          text-align: right;
         }
         .nftTitle {
           font-size: 3rem;
-          text-align: center;
           font-weight: 300;
-          margin: 0.7rem 0;
         }
         .nftTitle::after {
           content: " ";
@@ -67,8 +74,10 @@ export default function NFTCard(props) {
           white-space: pre;
         }
         .description {
-          font-size: 1.2rem;
-          padding: 1rem 2rem;
+          font-size: 14pt;
+          width: 100%;
+          padding: 0 2rem;
+          text-align: justify;
           align-self: flex-start;
         }
       `}</style>
