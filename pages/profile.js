@@ -1,11 +1,10 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { AnimatePresence } from "framer-motion";
 
 export default function Home() {
   const router = useRouter();
   return (
-    <AnimatePresence>
+    <>
       <div className="container">
         <Head>
           <title>My NFTs</title>
@@ -193,6 +192,6 @@ export default function Home() {
           }
         `}</style>
       </div>
-    </AnimatePresence>
+    </>
   );
 }

@@ -8,10 +8,6 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
-body {
-  background-image: url("/background.jpg");
-}
-
 * {
   box-sizing: border-box;
 }

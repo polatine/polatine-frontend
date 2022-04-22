@@ -3,7 +3,6 @@ import Web3 from "web3";
 import { CONTRACT_ABI, CONTRACT_ADDRESS } from "../contract/config";
 import { useState, useEffect } from "react";
 import "../public/global.css";
-import { AnimatePresence } from "framer-motion";
 
 const validChain = "0X4";
 var web3;
@@ -71,14 +70,12 @@ function MyApp({ Component, pageProps, router }) {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <AnimatePresence exitBeforeEnter initial={false}>
-      <Component
-        contract={contract}
-        status={status}
-        connectWallet={connectWallet}
-        key={router.route}
-      />
-    </AnimatePresence>
+    <Component
+      contract={contract}
+      status={status}
+      connectWallet={connectWallet}
+      key={router.route}
+    />
   );
 }
 

@@ -15,7 +15,6 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import Web3 from "web3";
 import { pinFileToIPFS } from "../components/pinata";
-import PageAnimation from "../components/PageAnimation";
 import NFTCard from "../components/NFTCard";
 
 const RoundedTextField = styled(TextField)({

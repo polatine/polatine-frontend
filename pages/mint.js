@@ -8,7 +8,6 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Web3 from "web3";
-import PageAnimation from "../components/PageAnimation";
 import collection from "../testdata/collection1.json";
 
 export default function Home(props) {
@@ -53,7 +52,7 @@ export default function Home(props) {
   const router = useRouter();
 
   return (
-    <PageAnimation>
+    <>
       <div className="container">
         <Head>
           <title>Polatine</title>
@@ -317,6 +316,6 @@ export default function Home(props) {
           }
         `}</style>
       </div>
-    </PageAnimation>
+    </>
   );
 }
