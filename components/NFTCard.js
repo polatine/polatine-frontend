@@ -7,6 +7,11 @@ const backgroundKeyFrames = [
     "--myColor3": "rgba(255, 204, 112, 1)",
   },
   {
+    "--myColor1": "rgba(65, 88, 208, 1)",
+    "--myColor2": "rgba(200, 80, 192, 1)",
+    "--myColor3": "rgba(255, 204, 112, 1)",
+  },
+  {
     "--myColor1": "rgba(252,225,208,1)",
     "--myColor2": "rgba(255,173,214,1)",
     "--myColor3": "#rgba(162,186,245,1)",
