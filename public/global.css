@@ -10,9 +10,7 @@ body {
   background-image: url("/background.jpg");
 }
 
-* {
-  box-sizing: border-box;
-}
+
 
 footer {
   width: 100%;
@@ -48,6 +46,7 @@ a {
 .title a:active {
   text-decoration: underline;
 }
+
 
 .title {
   margin-bottom: 4rem;
@@ -117,3 +116,34 @@ a {
     flex-direction: column;
   }
 }
+
+.navBar li{
+  display: inline;
+  margin: 20px;
+  font-size:30px;
+}
+
+.navBar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navBar {
+  overflow: hidden;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%; /* Full width */
+
+}
+
+
+
+.container {
+  scroll-snap-type: y mandatory;
+}
+
+section {
+  scroll-snap-align: start;
+}
+

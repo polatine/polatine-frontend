@@ -1,90 +1,102 @@
 import Head from "next/head";
 import Link from "next/link";
+import React, { useState,useEffect } from 'react';
+function WideNavBar(props){
+  return(
+    <div className = "navBar" style={{display:"flex",justifyContent:" space-between",flexDirection: "row"}}>
+      <Link href=""><h1 style={{marginLeft:"5%",height:"30px"}}>Polatine</h1></Link>
+      <ol>
+      <Link href="create">
+        <li>Create</li>
+        </Link>
+        <Link href="mint">
+        <li>Explore</li>
+        </Link>
+        <li>About us</li>
+      </ol>
+      <ol style={{marginRight:"5%"}}>
+      <Link href="profile">
+        <li>Account</li>
+        </Link>
+        <li>Wallet</li>
+      </ol>
+    </div>
+  )
+}
+
+const SmallNavBar = () => {
+  const [isShow, setShow] = useState(true);
+  return(
+    <div className = "navBar" style={{display:"flex",justifyContent:" space-between",flexDirection: "row"}}>
+      <Link href=""><h1 style={{marginLeft:"5%",height:"30px"}}>Polatine</h1></Link>
+      <ol style={{marginRight:"5%"}}>
+        
+      {isShow ? (
+      <li className ="test" onClick={() => setShow(false)}>Hamburger Menu</li>
+      ):(<ol>
+      <li style={{float:"right"}}onClick={() => setShow(true)}>Hamburger Menu Drop down</li>
+      <h1>asdasdasd</h1>
+      <h1>asdasdasd</h1>
+      <h1>asdasdasd</h1>
+      <h1>asdasdasd</h1>
+      </ol>
+      
+      
+      
+      )
+      }
+
+      </ol>
+    </div>
+  )
+}
+
+
+
+function BigAssCard(props){
+ 
+return (
+<div style={{scrollSnapAlign: "start"}}>
+
+<div>{props.text}</div>
+<img style={{width:"100%",height:"100vh", objectFit:"cover"}} src={props.url}/>
+ 
+</div>
+)
+}
+
 
 export default function Home() {
+  const [isDesktop, setDesktop] = useState(false);
+
+  useEffect(() => {
+    if (window.innerWidth > 1450) {
+      setDesktop(true);
+    } else {
+      setDesktop(false);
+    }
+
+    const updateMedia = () => {
+      if (window.innerWidth > 1450) {
+        setDesktop(true);
+      } else {
+        setDesktop(false);
+      }
+    };
+    window.addEventListener('resize', updateMedia);
+    return () => window.removeEventListener('resize', updateMedia);
+  }, []);
+  
+  
+  
   return (
-    <div className="container">
-      <Head>
-        <title>Polatine</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main>
-        <h1 className="title">Polatine</h1>
-
-        <p className="description">The NFT Platform for Artists</p>
-
-        <div className="grid">
-          <Link href="mint">
-            <a className="card">
-              <h3>Mint</h3>
-              <p>Mint features, cameos and so on.</p>
-            </a>
-          </Link>
-
-          <Link href="create">
-            <a className="card">
-              <h3>Create Collection</h3>
-              <p>Enable your fans to mint your NFTs.</p>
-            </a>
-          </Link>
-
-          <Link href="profile">
-            <a className="card">
-              <h3>My NFTS</h3>
-              <p>List the NFTs in your possession. Powered by OpenSea.</p>
-            </a>
-          </Link>
-        </div>
-        <img src="/blhome.png" className="blhome" />
-        <img src="/rhome.png" className="rhome" />
-        <img src="/tlhome.png" className="tlhome" />
-        <img src="/mhome.png" className="mhome" />
-      </main>
-
-      <style jsx>{`
-        img.blhome {
-          width: 20%;
-          position: absolute;
-          left: 0;
-          bottom: 0;
-        }
-        img.rhome {
-          width: 15%;
-          position: absolute;
-          right: 0;
-          top: 30%;
-        }
-        img.tlhome {
-          width: 15%;
-          position: absolute;
-          left: 0;
-          top: 0;
-        }
-        img.mhome {
-          width: 20%;
-          position: absolute;
-          z-index: -1;
-        }
-        .container {
-          min-height: 100vh;
-          padding: 0 0.5rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          z-index: 1;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-      `}</style>
+    <div >
+      {isDesktop ? (<WideNavBar/>) : (<SmallNavBar/>)}
+      <div style = {{scrollSnapType: "y mandatory",maxHeight: "100vh",overflowY: "scroll", fontSize: 0}}>
+        <BigAssCard text={"asdasasdasddasd"} url={"/50.jpg"}/>
+        <BigAssCard text={"asdasaasddasd"}  url={"/ar.jpg"}/>
+        <BigAssCard text={"asdasdsaddasd"} url={"/mm.jpg"}/>
+      </div>
     </div>
   );
 }
