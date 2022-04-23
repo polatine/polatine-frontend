@@ -17,6 +17,7 @@ import Web3 from "web3";
 import { pinFileToIPFS } from "../components/pinata";
 import ConnectWalletButton from "../components/ConnectWalletButton";
 import NFTCard from "../components/NFTCard";
+import PolatineLogo from "../components/PolatineLogo";
 
 const RoundedTextField = styled(TextField)({
   "& .MuiOutlinedInput-root": {
@@ -91,6 +92,9 @@ export default function Home(props) {
       </Head>
 
       <main>
+        <div className="logo">
+          <PolatineLogo />
+        </div>
         <section className="previewView">
           <NFTCard
             file={file}
@@ -235,6 +239,13 @@ export default function Home(props) {
           background: white;
           overflow-y: scroll;
           overflow-x: hidden;
+        }
+        .logo {
+          position: fixed;
+          padding: 1rem 4rem;
+          top: 0;
+          left: 0;
+          z-index: 1000;
         }
         header {
           position: fixed;
